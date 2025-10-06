@@ -1,7 +1,7 @@
 import React from 'react';
 import './authorization.css'
 import logo from '../../assets/logo/logo_emgek.png'
-import {Button, TextField} from "@mui/material";
+import {TextField} from "@mui/material";
 import ButtonComponent from "../../components/button/button";
 
 
@@ -19,7 +19,6 @@ const Authorization = () => {
                     <img src={logo} alt="" className="authorization-logo-imng"/>
                     <TextField id="outlined-basic" label="Логин" variant="outlined" />
                     <TextField id="outlined-password-input"  label="Пароль" type="password" autoComplete="current-password" />
-                    {/*<Button variant="outlined" onClick={test}>Войти</Button>*/}
                     <ButtonComponent
                         variant="outlined"
                         onClick={test}
