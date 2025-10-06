@@ -1,11 +1,18 @@
 import React from "react";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 import {votes} from "../../constants/testVotes";
+import { useNavigate } from "react-router-dom";
 import './statistics.css'
 
 export default function StatisticsPage() {
+    const navigate = useNavigate();
+    const BackToHomePage = () => {
+        navigate("/")
+    }
+
     return (
         <div className="statistics-container">
+            <input type="button" value="Вернуться в систему" onClick={BackToHomePage}/>
             <h2 className="chart-title">📊 Статистика по избирательным участкам</h2>
             <ResponsiveContainer width="95%" height="80%">
                 <LineChart
