@@ -1,5 +1,6 @@
 import {toast} from "react-toastify";
-import Alert from "../components/alert/alert";
+import Alert from '../components/alert/alert';
+
 
 const showSuccess = (title, msg, options) => {
     toast.success(<Alert title={title} msg={msg}/>, options)
