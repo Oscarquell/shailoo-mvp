@@ -1,3 +1,4 @@
+/* Главный контейнер */
 .statistics-container {
     width: 100%;
     min-height: 100vh;
@@ -5,51 +6,121 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    background: linear-gradient(135deg, #ffffff 0%, #f3faff 40%, #e9f8f0 100%);
-    border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(0, 103, 177, 0.15);
+    background: linear-gradient(135deg, #0E62AA 0%, #39B54A 100%);
+    background-attachment: fixed;
+    border-radius: 0;
+    box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.2);
     padding: 40px 20px;
-    overflow-x: hidden;
+    overflow: hidden;
     box-sizing: border-box;
-    border: 3px solid rgba(57, 181, 74, 0.3);
+    position: relative;
+    animation: fadeIn 1s ease forwards;
 }
 
-/* фиксируем внутренний контейнер под график */
-.recharts-responsive-container {
-    height: 400px !important; /* 👈 фиксированная высота */
-    width: 95% !important;
+/* Мягкие “сияющие” акценты */
+.statistics-container::before,
+.statistics-container::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.25;
+    z-index: 0;
 }
 
-.chart-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #0067B1;
-    margin-bottom: 25px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    background: linear-gradient(90deg, #0067B1, #39B54A);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-align: center;
-    text-shadow: 0 2px 8px rgba(0, 103, 177, 0.2);
+.statistics-container::before {
+    width: 320px;
+    height: 320px;
+    background: #39B54A;
+    top: -100px;
+    left: -100px;
+}
+.statistics-container::after {
+    width: 400px;
+    height: 400px;
+    background: #ffffff;
+    bottom: -150px;
+    right: -120px;
 }
 
+/* Анимация плавного появления */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Кнопка возврата */
 .statistics-container input[type="button"] {
-    background: linear-gradient(135deg, #39B54A, #0067B1);
+    background: linear-gradient(90deg, #39B54A, #0E62AA);
     color: #fff;
     border: none;
-    padding: 12px 28px;
+    padding: 12px 36px;
     font-weight: 700;
     font-size: 1rem;
-    border-radius: 12px;
+    border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
     margin-bottom: 25px;
-    box-shadow: 0 6px 15px rgba(57, 181, 74, 0.25);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    z-index: 2;
 }
-
 .statistics-container input[type="button"]:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(0, 103, 177, 0.35);
-    background: linear-gradient(135deg, #0067B1, #39B54A);
+    background: linear-gradient(90deg, #0E62AA, #39B54A);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.25);
+}
+
+/* Заголовок */
+.chart-title {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: linear-gradient(90deg, #ffffff, #39B54A);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+    z-index: 2;
+}
+
+/* График */
+.recharts-responsive-container {
+    height: 450px !important;
+    width: 95% !important;
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 18px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
+    padding: 25px;
+    backdrop-filter: blur(8px);
+    transition: all 0.4s ease;
+    z-index: 2;
+}
+
+.recharts-responsive-container:hover {
+    transform: scale(1.01);
+    box-shadow: 0 10px 45px rgba(57, 181, 74, 0.35);
+}
+
+/* Белые оси и подписи */
+.recharts-cartesian-axis-tick-value {
+    fill: #ffffff !important;
+    font-weight: 500;
+}
+.recharts-cartesian-axis-label {
+    fill: #ffffff !important;
+    font-weight: 600;
+}
+.recharts-tooltip-label,
+.recharts-tooltip-item {
+    color: #0E62AA !important;
+}
+
+/* Легенда */
+.recharts-default-legend {
+    color: #ffffff !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }

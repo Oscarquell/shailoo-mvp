@@ -1,33 +1,130 @@
+/* Основной контейнер */
 .authorization-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0E62AA 0%, #39B54A 100%);
+    background-attachment: fixed;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
+/* Окно авторизации */
 .authorization-window {
-    width: 20vw;
-    height: auto;
-    border: 1px solid black;
-    background-color: #FFFFFE;
+    width: 400px;
+    max-width: 90vw;
+    background: #ffffff;
     border-radius: 20px;
-    padding: 30px;
+    padding: 40px 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
 }
 
+/* Логотип */
 .authorization-logo {
-    width: 70%;
-    height: auto;
-    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
+.authorization-logo-imng {
+    width: 70%;
+    max-width: 250px;
+    height: auto;
+    display: block;
+    margin: 0 auto 25px auto;
+}
+
+/* Поля ввода и кнопка */
 .authorization-inputs {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 1vh;
+    align-items: center;
+    gap: 2vh;
+    width: 100%;
 }
 
-.authorization-logo-imng {
-    width: 100%;
-    height: auto;
+/* Широкие инпуты */
+.authorization-inputs .MuiTextField-root {
+    width: 90%;
+    max-width: 320px;
+}
+
+/* Подсветка фокуса для полей ввода */
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #0E62AA !important;
+    box-shadow: 0 0 6px rgba(57, 181, 74, 0.5);
+}
+
+.MuiInputLabel-root.Mui-focused {
+    color: #0E62AA !important;
+}
+
+/* Кнопка */
+.authorization-inputs button {
+    width: 90%;
+    max-width: 320px;
+    height: 44px;
+    font-weight: 700;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #39B54A, #0E62AA);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.authorization-inputs button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(14, 98, 170, 0.3);
+    background: linear-gradient(135deg, #0E62AA, #39B54A);
+}
+
+/* --- Адаптивность --- */
+@media (max-width: 768px) {
+    .authorization-window {
+        width: 80vw;
+        padding: 25px 20px;
+        border-radius: 16px;
+    }
+
+    .authorization-logo-imng {
+        width: 60%;
+        margin-bottom: 15px;
+    }
+
+    .authorization-inputs {
+        gap: 1.5vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .authorization-window {
+        width: 95vw;
+        padding: 20px 15px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .authorization-logo-imng {
+        width: 65%;
+    }
+
+    .authorization-inputs {
+        gap: 1.2vh;
+    }
+
+    .authorization-container {
+        padding: 10px;
+    }
 }
