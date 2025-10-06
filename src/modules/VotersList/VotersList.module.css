@@ -1,36 +1,89 @@
-.container{
-    margin: 0 5%;
-    font-size: 18px;
-
-}
-
-.table{
-
-    border-radius: 5px;
-    background: white;
-    max-height: 75vh;
+.container {
+    margin: 0 auto;
+    width: 100%;
+    /*max-width: 1200px;*/
+    font-size: 16px;
+    color: #222;
+    box-sizing: border-box;
     padding: 10px;
-    overflow: auto;
+
+    /* Важно: контейнер занимает всю высоту экрана, чтобы скролл был только внутри таблицы */
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.voter{
-    border-bottom: 1px solid #888888;
-    display: grid;
-    grid-template-columns:30px 30px 1fr 1fr 100px 1fr 1fr 1fr 1fr 1fr;
+/* таблица */
+.table {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    /* фиксируем высоту и включаем только внутренний скролл */
+    max-height: 75vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: all 0.3s ease;
 }
 
-.copyBtn{
-    background: #0E62AA;
-    border: none;
-    color: white;
-    cursor: pointer;
+/* стили для scrollbar */
+.table::-webkit-scrollbar {
+    width: 8px;
+}
+.table::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+.table::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}
 
-    &&:active{
-        scale: 1.1;
+/* ===== АДАПТИВ ===== */
+
+/* 📱 Мобильные телефоны */
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+        font-size: 14px;
+        padding: 5px;
+
+        /* фиксируем высоту и не даем странице скроллиться */
+        height: 70vh;
+        overflow: hidden;
+    }
+
+    .table {
+        border-radius: 6px;
+        box-shadow: none;
+
+        /* внутренняя прокрутка только таблицы */
+        max-height: 55vh;
+        overflow-y: auto;
     }
 }
 
-.tools{
-    display: flex;
-    gap: 5px;
+/* 📲 Планшеты */
+@media (min-width: 601px) and (max-width: 992px) {
+    .container {
+        width: 90%;
+        font-size: 15px;
+        height: 70vh;
+        overflow: hidden;
+    }
+
+    .table {
+        max-height: 80vh;
+    }
+}
+
+/* 💻 Большие экраны */
+@media (min-width: 1200px) {
+    .container {
+        /*max-width: 1300px;*/
+        font-size: 17px;
+    }
 }

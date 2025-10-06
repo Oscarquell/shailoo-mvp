@@ -1,0 +1,41 @@
+.parent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+}
+
+.paginationButton {
+    /*padding: 8px 12px;*/
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    font-size: 24px;
+}
+
+.paginationButton:disabled {
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+}
+
+.paginationItem {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.paginationItem.active {
+    background-color: white;
+    color: black;
+    border-color: #000000;
+}
+
+.ellipsis {
+    padding: 8px;
+}
