@@ -2,6 +2,7 @@ import React from 'react';
 import {Navigate, Route, Routes} from "react-router-dom";
 import Authorization from "../pages/authorization/authorization";
 import HomePage from "../pages/homePage/homePage"
+import StatisticsPage from "../pages/statisticsPage/statisticsPage";
 
 
 const MainRoutes = () => {
@@ -19,6 +20,7 @@ const MainRoutes = () => {
     return (
     <Routes>
         <Route index element={ <PrivateRoute> <HomePage /> </PrivateRoute> } />
+        <Route path="/statistics" element={ <PrivateRoute> <StatisticsPage /> </PrivateRoute> } />
         <Route path="/login" element={<Authorization />} />
     </Routes>
     );
