@@ -1,6 +1,7 @@
 import React from 'react';
 import style from "./VotersList.module.css"
 import {Voters} from "../../constants/testConstants";
+import VotersItem from "../../components/VotersItem/VotersItem";
 
 const VotersList = () => {
     return (
@@ -9,34 +10,34 @@ const VotersList = () => {
             style={{width:'90%'}}
         >
             <div className={style.table}>
-                <div className={style.voter}>
-                    <div>№</div>
-                    <div>id</div>
-                    <div>ФИО</div>
-                    <div>ИНН</div>
-                    <div>Адрес</div>
-                    <div>Телефон</div>
-                    <div>Изб. участок</div>
-                    <div>Участее раньше</div>
-                    <div>Агитатор</div>
-                    <div>Инструменты</div>
-                </div>
+                <VotersItem
+                    nom={"№"}
+                    id={"id"}
+                    name={"ФИО"}
+                    pin={"ИНН"}
+                    address={"Адрес"}
+                    phone={"Телефон"}
+                    pollingStationNumber={"Изб. участок"}
+                    participatedInPreviousElections={"частее раньше"}
+                    agitator={"Агитатор"}
+                    header={true}
+                    key={"dajwdalwiufdwgwlasdbywdlc"}
+
+                />
                 {Voters.map((voter, idx) =>
-                    <div key={voter.id} className={style.voter}>
-                        <div>{idx + 1}</div>
-                        <div>{voter.id}</div>
-                        <div>{voter.name}</div>
-                        <div>{voter.pin}</div>
-                        <div>{voter.address}</div>
-                        <div>{voter.phone}</div>
-                        <div>{voter.pollingStationNumber}</div>
-                        <div>{voter.participatedInPreviousElections ? "Да" : voter.participatedInPreviousElections === null ? "Неизвестно" : "Нет"}</div>
-                        <div>{voter.agitator}</div>
-                        <div className={style.tools}>
-                            <button className={style.copyBtn}>copy</button>
-                            {/*<button className={style.copyBtn}>Подробнее</button>*/}
-                        </div>
-                    </div>
+                    <VotersItem
+                        key={voter.id}
+                        name={voter.name}
+                        pin={voter.pin}
+                        nom={idx + 1}
+                        address={voter.address}
+                        phone={voter.phone}
+                        pollingStationNumber={voter.pollingStationNumber}
+                        participatedInPreviousElections={voter.participatedInPreviousElections}
+                        agitator={voter.agitator}
+                        header={false}
+
+                    />
                 )}
 
             </div>

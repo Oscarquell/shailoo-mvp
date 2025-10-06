@@ -1,0 +1,111 @@
+/* ===== БАЗОВЫЙ ВИД ===== */
+.voter {
+    display: grid;
+    grid-template-columns: 60px 1.2fr 1.5fr 1fr 1.5fr;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 14px;
+    transition: background 0.2s ease;
+    text-align: center;
+    background: white;
+    font-size: 15px;
+}
+
+.voter:first-child {
+    background: #f2f6fa;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.voter:hover:not(:first-child) {
+    background: #f9fbfd;
+}
+
+/* ===== КНОПКИ ===== */
+.copyBtn {
+    background: #0E62AA;
+    border: none;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: 0.15s;
+    white-space: nowrap;
+}
+
+.copyBtn:hover {
+    background: #0c5493;
+}
+
+.copyBtn:active {
+    transform: scale(0.95);
+}
+
+.tools {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+/* ====== АДАПТИВ ====== */
+
+/* 📱 Маленькие экраны (до 600px) */
+@media (max-width: 600px) {
+    .voter {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        border: 1px solid #eee;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .voter:first-child {
+        display: none; /* скрываем заголовок таблицы */
+    }
+
+    .voter div {
+        width: 100%;
+        padding: 4px 0;
+    }
+
+    .tools {
+        width: 100%;
+        justify-content: flex-start;
+        margin-top: 8px;
+    }
+
+    .copyBtn {
+        font-size: 12px;
+        padding: 4px 10px;
+    }
+}
+
+/* 📲 Планшеты (от 601px до 992px) */
+@media (min-width: 601px) and (max-width: 992px) {
+    .voter {
+        grid-template-columns: 40px 1fr 1.2fr 0.8fr 1fr;
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .copyBtn {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+}
+
+/* 💻 Большие экраны (1200px+) */
+@media (min-width: 1200px) {
+    .voter {
+        grid-template-columns: 60px 1.5fr 1.5fr 1fr 2fr;
+        font-size: 16px;
+    }
+}

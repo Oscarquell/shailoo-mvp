@@ -38,6 +38,115 @@ export const Voters = [
         pollingStationNumber: '1124',
         participatedInPreviousElections: false,
         agitator: 'Азем Акынбекова'
-    }
-]
-
+    },
+    {
+        id: 5,
+        name: 'Алжанов Тимур Куленбекович',
+        pin: '25121977378945',
+        address: '5-44-21',
+        phone: '0555987456',
+        pollingStationNumber: '1124',
+        participatedInPreviousElections: false,
+        agitator: 'Азем Акынбекова'
+    },
+    {
+        id: 6,
+        name: 'Алжанов Тимур Куленбекович',
+        pin: '25121977378945',
+        address: '5-44-21',
+        phone: '0555987456',
+        pollingStationNumber: '1124',
+        participatedInPreviousElections: false,
+        agitator: 'Азем Акынбекова'
+    },
+    {
+        id: 7,
+        name: 'Алжанов Тимур Куленбекович',
+        pin: '25121977378945',
+        address: '5-44-21',
+        phone: '0555987456',
+        pollingStationNumber: '1124',
+        participatedInPreviousElections: false,
+        agitator: 'Азем Акынбекова'
+    },
+    {
+        id: 8,
+        name: 'Алжанов Тимур Куленбекович',
+        pin: '25121977378945',
+        address: '5-44-21',
+        phone: '0555987456',
+        pollingStationNumber: '1124',
+        participatedInPreviousElections: false,
+        agitator: 'Азем Акынбекова'
+    },
+    {
+        id: 9,
+        name: 'Алжанов Тимур Куленбекович',
+        pin: '25121977378945',
+        address: '5-44-21',
+        phone: '0555987456',
+        pollingStationNumber: '1124',
+        participatedInPreviousElections: false,
+        agitator: 'Азем Акынбекова'
+    },
+    {
+        id: 10,
+        name: 'Алжанов Тимур Куленбекович',
+        pin: '25121977378945',
+        address: '5-44-21',
+        phone: '0555987456',
+        pollingStationNumber: '1124',
+        participatedInPreviousElections: false,
+        agitator: 'Азем Акынбекова'
+    },
+    {
+        id: 11,
+        name: 'Алжанов Тимур Куленбекович',
+        pin: '25121977378945',
+        address: '5-44-21',
+        phone: '0555987456',
+        pollingStationNumber: '1124',
+        participatedInPreviousElections: false,
+        agitator: 'Азем Акынбекова'
+    },
+    {
+        id: 12,
+        name: 'Алжанов Тимур Куленбекович',
+        pin: '25121977378945',
+        address: '5-44-21',
+        phone: '0555987456',
+        pollingStationNumber: '1124',
+        participatedInPreviousElections: null,
+        agitator: 'Азем Акынбекова'
+    },
+    {
+        id: 13,
+        name: 'Алжанов Тимур Куленбекович',
+        pin: '25121977378945',
+        address: '5-44-21',
+        phone: '0555987456',
+        pollingStationNumber: '1124',
+        participatedInPreviousElections: false,
+        agitator: 'Азем Акынбекова'
+    },
+    {
+        id: 14,
+        name: 'Алжанов Тимур Куленбекович',
+        pin: '25121977378945',
+        address: '5-44-21',
+        phone: '0555987456',
+        pollingStationNumber: '1124',
+        participatedInPreviousElections: false,
+        agitator: 'Азем Акынбекова'
+    },
+    {
+        id: 15,
+        name: 'Алжанов Тимур Куленбекович',
+        pin: '25121977378945',
+        address: '5-44-21',
+        phone: '0555987456',
+        pollingStationNumber: '1124',
+        participatedInPreviousElections: false,
+        agitator: 'Азем Акынбекова'
+    },
+];
