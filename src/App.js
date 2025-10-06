@@ -3,6 +3,7 @@ import MainRoutes from "./routes/mainRoutes";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css'
+import ModalWindow from "./components/ModalWindow/ModalWindow";
 
 const App = () => {
     return (
