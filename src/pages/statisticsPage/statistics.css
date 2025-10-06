@@ -1,19 +1,55 @@
 .statistics-container {
     width: 100%;
-    height: 80vh;              /* график займёт 80% высоты окна */
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    background: #f7f9fc;       /* лёгкий фон */
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    justify-content: flex-start;
+    background: linear-gradient(135deg, #ffffff 0%, #f3faff 40%, #e9f8f0 100%);
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 103, 177, 0.15);
+    padding: 40px 20px;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    border: 3px solid rgba(57, 181, 74, 0.3);
+}
+
+/* фиксируем внутренний контейнер под график */
+.recharts-responsive-container {
+    height: 400px !important; /* 👈 фиксированная высота */
+    width: 95% !important;
 }
 
 .chart-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-    color: #333;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0067B1;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: linear-gradient(90deg, #0067B1, #39B54A);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    text-shadow: 0 2px 8px rgba(0, 103, 177, 0.2);
+}
+
+.statistics-container input[type="button"] {
+    background: linear-gradient(135deg, #39B54A, #0067B1);
+    color: #fff;
+    border: none;
+    padding: 12px 28px;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 25px;
+    box-shadow: 0 6px 15px rgba(57, 181, 74, 0.25);
+}
+
+.statistics-container input[type="button"]:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 103, 177, 0.35);
+    background: linear-gradient(135deg, #0067B1, #39B54A);
 }
