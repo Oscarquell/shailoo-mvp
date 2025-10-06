@@ -1,25 +1,24 @@
 import React from 'react';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 
-const Select = () => {
+const SelectComponent = ({value, label, onChange, items, width, height}) => {
     return (
         <>
-            <InputLabel id="demo-simple-select-label">Age</InputLabel>
+            {/*<InputLabel id={id}>{label}</InputLabel>*/}
             <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={age}
-                label="Age"
-                onChange={handleChange}
+                style={{ width: width, height: height }}
+                value={value}
+                label={label}
+                onChange={onChange}
+                variant={"filled"}
             >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                {items.map((item) =>
+                    <MenuItem value={item.id}>{item.value}</MenuItem>
+                )}
             </Select>
         </>
     );
 };
 
-export default Select;
+export default SelectComponent;
