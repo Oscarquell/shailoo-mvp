@@ -5,8 +5,11 @@ import {votes} from "../../constants/testVotes";
 import AutoComplete from "../../components/AutoComplete/AutoComplete";
 import InputComponent from "../../components/Input/Input";
 import SearchIcon from "../../assets/icons/searchIcon.svg"
+import {useNavigate} from "react-router-dom";
 
 const Search = () => {
+    const navigate = useNavigate();
+
     return (
         <div>
             <div className={style.FiltersParent}>
@@ -35,6 +38,16 @@ const Search = () => {
                     label={"Агитатор"}
                 />
                 <ButtonComponent
+                    text={"Статистика"}
+                    style={{
+                        color: "black",
+                        width: "400px",
+                        backgroundColor: "white",
+                        height: "50px"
+                    }}
+                    onClick={() => navigate("/statistics")}
+                />
+                <ButtonComponent
                     text={"Добавить"}
                     style={{
                         color: "black",
@@ -43,6 +56,7 @@ const Search = () => {
                         height: "50px"
                 }}
                 />
+
             </div>
             <div className={style.SearchParent}>
                 <InputComponent
