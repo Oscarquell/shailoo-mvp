@@ -1,0 +1,19 @@
+.statistics-container {
+    width: 100%;
+    height: 80vh;              /* график займёт 80% высоты окна */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #f7f9fc;       /* лёгкий фон */
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.chart-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333;
+}
