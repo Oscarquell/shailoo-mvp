@@ -1,30 +1,68 @@
 import React from 'react';
 import style from "./Search.module.css"
-import SelectComponent from "../../components/Select/Select";
 import ButtonComponent from "../../components/button/button";
+import {votes} from "../../constants/testVotes";
+import AutoComplete from "../../components/AutoComplete/AutoComplete";
+import InputComponent from "../../components/Input/Input";
 
 const Search = () => {
     return (
         <div>
             <div className={style.FiltersParent}>
-                <SelectComponent
-                    label={"Участок"}
-                    items={[{id: 1, value: "1"},{id: 2, value: "2"},{id: 2, value: "2"},]}
-                    id={"station"}
-                    style={{backgroundColor: "white", width: "200px", height: "40px" }}
+                <AutoComplete
+                    style={{
+                        width: "200px",
+                        "& .MuiInputBase-root": {
+                            backgroundColor: "white", // фон самого поля
+                            borderRadius: "5px",
+                        },
+                    }}
+                    items={votes.map((item) => {
+                        return (item.pollingStationNumber)})
+                    }
+                    label="Участки"
                 />
-                <SelectComponent
+                <AutoComplete
+                    style={{
+                        width: "200px",
+                        "& .MuiInputBase-root": {
+                            backgroundColor: "white", // фон самого поля
+                            borderRadius: "5px",
+                        },
+                    }}
+                    items={[{id: 1, value: "Человек 1"},{id: 2, value: "Человек 2"},{id: 2, value: "Человек 2"},].map((item) => item.value)}
                     label={"Агитатор"}
-                    items={[{id: 1, value: "Человек 1"},{id: 2, value: "Человек 2"},{id: 2, value: "Человек 2"},]}
-                    id={"station"}
-                    style={{backgroundColor: "white", width: "200px", height: "50px" }}
                 />
                 <ButtonComponent
                     text={"Добавить"}
-                    style={{color: "black", backgroundColor: "white", width: "200px", height: "50px", padding: "0", margin: "0"}}
+                    style={{
+                        color: "black",
+                        width: "200px",
+                        backgroundColor: "white",
+                        height: "50px"
+                }}
                 />
             </div>
-            <div>
+            <div className={style.SearchParent}>
+                <InputComponent
+                    label="ФИО / Адрес / ИНН"
+                    sx={{
+                        width: '100%',
+                        borderRadius: "5px",
+                        backgroundColor: '#fff',
+                        "& .MuiOutlinedInput-root": {
+                            "& fieldset": {
+                                borderColor: "#ccc", // цвет рамки
+                            },
+                            "&:hover fieldset": {
+                                borderColor: "#888",
+                            },
+                            "&.Mui-focused fieldset": {
+                                borderColor: "#1976d2", // рамка при фокусе
+                            },
+                        },
+                    }}
+                />
 
             </div>
         </div>
