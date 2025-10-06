@@ -1,0 +1,34 @@
+.container{
+    margin: 0 5%;
+    font-size: 18px;
+}
+
+.table{
+
+    border-radius: 5px;
+    background: white;
+
+    padding: 10px;
+}
+
+.voter{
+    border-bottom: 1px solid #888888;
+    display: grid;
+    grid-template-columns:1fr 1fr 1fr 1fr 1fr;
+}
+
+.copyBtn{
+    background: #0E62AA;
+    border: none;
+    color: white;
+    cursor: pointer;
+
+    &&:active{
+        scale: 1.1;
+    }
+}
+
+.tools{
+    display: flex;
+    gap: 5px;
+}

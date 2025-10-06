@@ -4,6 +4,7 @@ import ButtonComponent from "../../components/button/button";
 import {votes} from "../../constants/testVotes";
 import AutoComplete from "../../components/AutoComplete/AutoComplete";
 import InputComponent from "../../components/Input/Input";
+import SearchIcon from "../../assets/icons/searchIcon.svg"
 
 const Search = () => {
     return (
@@ -11,7 +12,7 @@ const Search = () => {
             <div className={style.FiltersParent}>
                 <AutoComplete
                     style={{
-                        width: "200px",
+                        width: "400px",
                         "& .MuiInputBase-root": {
                             backgroundColor: "white", // фон самого поля
                             borderRadius: "5px",
@@ -24,7 +25,7 @@ const Search = () => {
                 />
                 <AutoComplete
                     style={{
-                        width: "200px",
+                        width: "400px",
                         "& .MuiInputBase-root": {
                             backgroundColor: "white", // фон самого поля
                             borderRadius: "5px",
@@ -37,7 +38,7 @@ const Search = () => {
                     text={"Добавить"}
                     style={{
                         color: "black",
-                        width: "200px",
+                        width: "400px",
                         backgroundColor: "white",
                         height: "50px"
                 }}
@@ -63,6 +64,9 @@ const Search = () => {
                         },
                     }}
                 />
+                <button className={style.searchBtn}>
+                    <img src={SearchIcon} alt="search"/>
+                </button>
 
             </div>
         </div>
