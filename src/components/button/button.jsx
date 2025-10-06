@@ -3,10 +3,10 @@ import {Button} from "@mui/material";
 
 const ButtonComponent = (props) => {
 
-    const { variant, onClick, text } = props;
+    const { variant, onClick, text, style } = props;
 
     return (
-        <Button variant={variant} onClick={onClick}>{text}</Button>
+        <Button variant={variant} onClick={onClick} style={style}>{text}</Button>
     );
 };
 
