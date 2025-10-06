@@ -1,7 +1,8 @@
 import React from 'react';
 import {Navigate, Route, Routes} from "react-router-dom";
 import Authorization from "../pages/authorization/authorization";
-import HomePage from "../pages/homePage/homePage";
+import HomePage from "../pages/homePage/homePage"
+
 
 const MainRoutes = () => {
 
