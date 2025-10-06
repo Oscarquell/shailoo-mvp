@@ -1,0 +1,33 @@
+.authorization-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.authorization-window {
+    width: 20vw;
+    height: auto;
+    border: 1px solid black;
+    background-color: #FFFFFE;
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.authorization-logo {
+    width: 70%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.authorization-inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1vh;
+}
+
+.authorization-logo-imng {
+    width: 100%;
+    height: auto;
+}
