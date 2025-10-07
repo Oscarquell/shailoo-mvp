@@ -19,6 +19,7 @@ const VoterInfoModalContent = ({ id, setIsOpened, setVoters }) => {
             const { data } = await axiosInstance.get(`/voters/${id}`);
             setVoter(data);
             setNewVoter(data);
+            console.log(data)
         } catch (e) {
             navigate("/login")
         }

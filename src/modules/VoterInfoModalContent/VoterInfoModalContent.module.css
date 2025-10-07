@@ -2,7 +2,7 @@
     border-radius: 20px;
     padding: 2px; /* рамка градиента */
     /*box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);*/
-    width: 520px;
+    width: 90%;
     margin: 0 auto;
     color: #333;
 }
@@ -99,7 +99,7 @@
     }
 
     .infoCard {
-        flex-direction: column;
+        /*flex-direction: column;*/
         text-align: center;
         gap: 10px;
     }
@@ -107,5 +107,12 @@
     .buttons {
         flex-direction: column;
         gap: 10px;
+    }
+}
+
+
+@media (max-height: 900px) {
+    .modalContent > * {
+        padding: 5px 15px;
     }
 }

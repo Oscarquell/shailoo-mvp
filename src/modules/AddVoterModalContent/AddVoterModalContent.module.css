@@ -1,0 +1,69 @@
+.title{
+    display: flex;
+    justify-content: center;
+    color: #0e62aa;
+    font-size: 34px;
+    margin: 20px 5% 20px 5%;
+    /*width: 90%;*/
+    gap: 60px;;
+    background: white;
+    border-radius: 5px;
+    padding: 10px 15px;
+
+
+
+    && input{
+        font-size: 34px;
+        color: #0e62aa;
+        outline: none;
+        border: 1px solid black;
+        width: 200px;
+    }
+}
+
+.parent{
+    color: #666;
+    margin: 40px 5%;
+    /*width: 89%;*/
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    font-size: 18px;
+    line-height: 1.8;
+    background-color: #f9fbfd;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: inset 0 0 12px rgba(14, 98, 170, 0.15);
+    && input{
+        color: black;
+        outline: none;
+        border: 1px solid black;
+        width: 100px;
+    }
+}
+
+.parent input{
+    color: #666;
+}
+
+.infoBlock:first-child{
+    font-weight: 500;
+}
+
+.infoBlock div{
+    height: 50px;
+}
+
+.buttons{
+    color: #666;
+    margin: 40px 3%;
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    font-size: 18px;
+    line-height: 1.8;
+    background-color: #f9fbfd;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: inset 0 0 12px rgba(14, 98, 170, 0.15);
+}
