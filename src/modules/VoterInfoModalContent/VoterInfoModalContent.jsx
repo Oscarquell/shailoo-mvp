@@ -3,6 +3,7 @@ import { axiosInstance } from "../../API/api";
 import style from "./VoterInfoModalContent.module.css";
 import { Button } from "@mui/material";
 import {getVotersList} from "../../API/getVoterList";
+import {useNavigate} from "react-router-dom";
 
 const VoterInfoModalContent = ({ id, setIsOpened, setVoters }) => {
     const [voter, setVoter] = useState({});
@@ -10,6 +11,7 @@ const VoterInfoModalContent = ({ id, setIsOpened, setVoters }) => {
     const [pollingStations, setPollingStations] = useState([]);
     const [newVoter, setNewVoter] = useState({});
     const [confirmDelete, setConfirmDelete] = useState(false)
+    const navigate = useNavigate()
 
     // === Получение данных избирателя ===
     async function getVoter() {
@@ -18,7 +20,7 @@ const VoterInfoModalContent = ({ id, setIsOpened, setVoters }) => {
             setVoter(data);
             setNewVoter(data);
         } catch (e) {
-            console.error("Ошибка при загрузке избирателя:", e);
+            navigate("/login")
         }
     }
 
@@ -28,7 +30,7 @@ const VoterInfoModalContent = ({ id, setIsOpened, setVoters }) => {
             const { data } = await axiosInstance.get("/polling-stations/statistics");
             setPollingStations(data);
         } catch (e) {
-            console.error("Ошибка при загрузке участков:", e);
+            navigate("/login")
         }
     }
 
@@ -56,24 +58,29 @@ const VoterInfoModalContent = ({ id, setIsOpened, setVoters }) => {
             setEdit(false);
             console.log("Избиратель успешно обновлён:", data);
         } catch (e) {
-            console.error("Ошибка при обновлении избирателя:", e);
+            navigate("/login")
         }
     }
 
     async function deleteVoter() {
         try {
-            const {data} = await axiosInstance.delete(`/voters/${id}`)
+            await axiosInstance.delete(`/voters/${id}`)
             getVoters()
             setIsOpened(false)
         } catch (e) {
-            console.log(e)
+            navigate("/login")
         }
     }
 
     async function getVoters() {
-        const voters = await getVotersList()
-        setVoters(voters)
-        setIsOpened(false)
+        try {
+            const voters = await getVotersList()
+            setVoters(voters)
+            setIsOpened(false)
+        } catch (e) {
+            navigate("/login")
+
+        }
     }
 
     useEffect(() => {

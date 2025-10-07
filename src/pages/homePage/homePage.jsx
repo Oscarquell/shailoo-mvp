@@ -5,18 +5,24 @@ import Pagination from "../../modules/Pagination/Pagination";
 import {Voters} from "../../constants/testConstants";
 import {axiosInstance} from "../../API/api";
 import {getVotersList} from "../../API/getVoterList";
+import {useNavigate} from "react-router-dom";
 
 const ITEMS_PER_PAGE = 10;
 
 const HomePage = () => {
     const [page, setPage] = useState(1);
     const [voters, setVoters] = useState([]);
+    const navigate = useNavigate()
 
     const totalPages = Math.max(1, Math.ceil((Voters?.length || 0) / ITEMS_PER_PAGE));
 
     async function getVoters() {
-        const voters = await getVotersList()
-        setVoters(voters)
+        try {
+            const voters = await getVotersList();
+            setVoters(voters);
+        } catch (e) {
+            navigate("/login")
+        }
     }
 
     useEffect(() => {
