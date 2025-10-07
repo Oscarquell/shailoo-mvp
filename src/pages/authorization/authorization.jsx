@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import logo from '../../assets/logo/logo_emgek.png';
-import { TextField } from "@mui/material";
-import ButtonComponent from "../../components/button/button";
+import { TextField, Button } from "@mui/material";
 import { showSuccess, showError } from "../../utils/alerts";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../API/api";
@@ -30,7 +29,8 @@ const Authorization = () => {
         }
     };
 
-    const handleLogin = async () => {
+    const handleLogin = async (e) => {
+        e.preventDefault();
         if (!login || !password) {
             showError('Ошибка', 'Введите логин и пароль');
             return;
@@ -47,7 +47,7 @@ const Authorization = () => {
                 setToken(accessToken, "accessToken");
                 setToken(refreshToken, "refreshToken");
                 const decoded = parseJwt(accessToken);
-                if (decoded && decoded.fullName) {
+                if (decoded?.fullName) {
                     localStorage.setItem("userName", decoded.fullName);
                 }
                 showSuccess('Вы успешно вошли!', `Добро пожаловать, ${decoded.fullName}`);
@@ -68,34 +68,47 @@ const Authorization = () => {
     return (
         <div className="authorization-container">
             <div className="authorization-window">
-                <div className="authorization-logo">
-                    <div className="authorization-inputs">
-                        <img src={logo} alt="logo" className="authorization-logo-imng" />
-                        <TextField
-                            id="login"
-                            label="Логин"
-                            variant="outlined"
-                            value={login}
-                            onChange={(e) => setLogin(e.target.value)}
-                            style={{ backgroundColor: "white" }}
-                        />
-                        <TextField
-                            id="password"
-                            label="Пароль"
-                            type="password"
-                            autoComplete="current-password"
-                            variant="outlined"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            style={{ backgroundColor: "white" }}
-                        />
-                        <ButtonComponent
-                            variant="outlined"
-                            onClick={handleLogin}
-                            text={'Войти'}
-                        />
-                    </div>
-                </div>
+                <form
+                    onSubmit={handleLogin}
+                    className="authorization-inputs"
+                    autoComplete="on"
+                >
+                    <img src={logo} alt="logo" className="authorization-logo-imng" />
+
+                    <TextField
+                        id="login"
+                        label="Логин"
+                        name="username"
+                        type="text"
+                        variant="outlined"
+                        value={login}
+                        onChange={(e) => setLogin(e.target.value)}
+                        autoComplete="username"
+                        fullWidth
+                        style={{ backgroundColor: "white" }}
+                    />
+                    <TextField
+                        id="password"
+                        label="Пароль"
+                        name="password"
+                        type="password"
+                        variant="outlined"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        autoComplete="current-password"
+                        fullWidth
+                        style={{ backgroundColor: "white" }}
+                    />
+
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        fullWidth
+                    >
+                        Войти
+                    </Button>
+                </form>
             </div>
         </div>
     );
