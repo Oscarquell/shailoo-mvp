@@ -18,28 +18,32 @@
 .table {
     display: flex;
     flex-direction: column;
-    background: #fff;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 
     /* фиксируем высоту и включаем только внутренний скролл */
     max-height: 75vh;
     overflow-y: auto;
     /*overflow-x: hidden;*/
     transition: all 0.3s ease;
+    /*background: linear-gradient(135deg, #0E62AA 0%, #39B54A 100%);*/
+    /*background-attachment: fixed;*/
+    box-shadow: 0px 0px 14px 2px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 0px 14px 2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 14px 2px rgba(0,0,0,0.75);
 }
 
 /* стили для scrollbar */
 .table::-webkit-scrollbar {
-    width: 8px;
+    width: 4px;
+    border-radius: 5px;
 }
 .table::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 4px;
+    background: #0E62AA;
+    border-radius: 5px;
 }
 .table::-webkit-scrollbar-thumb:hover {
-    background: #999;
+    background: linear-gradient(135deg, #0E62AA 0%, #39B54A 100%);
 }
 
 /* ===== АДАПТИВ ===== */

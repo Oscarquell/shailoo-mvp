@@ -18,7 +18,7 @@ export const Voters = [
         pollingStationNumber: '1124',
         participatedInPreviousElections: false,
         agitator: 'Клара Токтосартова'
-    },
+    }, 
     {
         id: 3,
         name: 'Рыскулбекова Аида Турарбековна',

@@ -1,0 +1,118 @@
+.modalContent {
+    border-radius: 20px;
+    padding: 2px; /* рамка градиента */
+    /*box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);*/
+    width: 90%;
+    margin: 0 auto;
+    color: #333;
+}
+
+.modalContent > * {
+    background: #fff;
+    border-radius: 18px;
+    padding: 30px 25px;
+}
+
+.title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    color: #0e62aa;
+    margin-bottom: 20px;
+}
+
+.infoCard {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    font-size: 18px;
+    line-height: 1.8;
+    background-color: #f9fbfd;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: inset 0 0 12px rgba(14, 98, 170, 0.15);
+}
+
+.infoBlock {
+    text-align: start;
+
+    && select{
+        width: 100%;
+    }
+}
+
+.infoBlock:first-child {
+    color: #666;
+    font-weight: 600;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.editBtn {
+    background: linear-gradient(135deg, #0E62AA, #1790B8);
+    text-transform: none;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.deleteBtn {
+    background: linear-gradient(135deg, #d9534f, #ff7675);
+    text-transform: none;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.editBtn:hover {
+    background: linear-gradient(135deg, #094c82, #0f7ea2);
+}
+
+.deleteBtn:hover {
+    background: linear-gradient(135deg, #c0392b, #e74c3c);
+}
+
+.buttonsConfirmPar{
+    margin-top: 20px;
+    height: 50px;
+
+    && p{
+        margin: 0 auto 10px;
+        padding: 0;
+    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buttonsConfirm{
+    display: flex;
+    gap: 20px;
+}
+
+@media (max-width: 600px) {
+    .modalContent {
+        width: 90%;
+    }
+
+    .infoCard {
+        /*flex-direction: column;*/
+        text-align: center;
+        gap: 10px;
+    }
+
+    .buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+
+@media (max-height: 900px) {
+    .modalContent > * {
+        padding: 5px 15px;
+    }
+}

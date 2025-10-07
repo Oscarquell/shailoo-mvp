@@ -1,12 +1,12 @@
 import React from 'react';
 import style from './ModalWindow.module.css';
 
-const ModalWindow = ({children, setIsOpen }) => {
+const ModalWindow = ({children, setIsOpened, width = 80, height = 80, marginTop }) => {
     return (
-        <div onClick={() => setIsOpen(false)} className={style.bloor}>
-            <div onClick={(e) => e.stopPropagation()} className={style.window}>
+        <div onClick={() => setIsOpened(false)} className={style.bloor}>
+            <div style={{width: `${width}%`, height: `${height}vh`, margin: `${marginTop} auto`}} onClick={(e) => e.stopPropagation()} className={style.window}>
                 <div className={style.header}>
-                    <button>x</button>
+                    <button onClick={() => setIsOpened(false)}>x</button>
                 </div>
                 <div className={style.body}>
                     {children}

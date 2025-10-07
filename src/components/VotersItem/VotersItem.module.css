@@ -1,26 +1,30 @@
 /* ===== БАЗОВЫЙ ВИД ===== */
 .voter {
     display: grid;
-    grid-template-columns: 60px 1.2fr 1.5fr 1fr 1.5fr;
+    grid-template-columns: 60px 1.2fr 1.5fr 1fr 50px;
     align-items: center;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #a8a8a8;
     padding: 10px 14px;
     transition: background 0.2s ease;
     text-align: center;
-    background: white;
+    /*background: white;*/
     font-size: 15px;
+    cursor: pointer;
+    font-weight: 500;
 }
 
 .voter:first-child {
-    background: #f2f6fa;
+    /*background: #f2f6fa;*/
     font-weight: 600;
     position: sticky;
     top: 0;
     z-index: 2;
+    background: linear-gradient(135deg, #0E62AA 0%, #39B54A 100%);
+    cursor: default;
 }
 
 .voter:hover:not(:first-child) {
-    background: #f9fbfd;
+    background: rgba(249, 251, 253, 0.18);
 }
 
 /* ===== КНОПКИ ===== */
@@ -91,7 +95,7 @@
 /* 📲 Планшеты (от 601px до 992px) */
 @media (min-width: 601px) and (max-width: 992px) {
     .voter {
-        grid-template-columns: 40px 1fr 1.2fr 0.8fr 1fr;
+        grid-template-columns: 40px 1fr 1.2fr 0.8fr 50px;
         font-size: 14px;
         padding: 8px;
     }
@@ -105,7 +109,7 @@
 /* 💻 Большие экраны (1200px+) */
 @media (min-width: 1200px) {
     .voter {
-        grid-template-columns: 60px 1.5fr 1.5fr 1fr 2fr;
+        grid-template-columns: 60px 1.5fr 1.5fr 1fr 50px;
         font-size: 16px;
     }
 }
