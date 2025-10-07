@@ -1,0 +1,127 @@
+/* Сайдбар */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background: linear-gradient(180deg, #0e62aa 0%, #2cb25f 100%);
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.3);
+    color: white;
+    z-index: 1100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 30px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.open {
+    transform: translateX(0);
+}
+
+/* Заголовок */
+.sidebar-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+/* Кнопки навигации */
+.sidebar-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    align-items: center;
+}
+
+.sidebar-btn {
+    width: 80%;
+    padding: 10px 0;
+    font-size: 16px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.sidebar-btn:hover {
+    background: rgba(255, 255, 255, 0.35);
+    transform: scale(1.03);
+}
+
+.sidebar-btn.active {
+    background: white;
+    color: #0e62aa;
+    font-weight: 600;
+}
+
+/* Кнопка-гамбургер */
+.menu-btn {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1200;
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    border-radius: 8px;
+    padding: 6px;
+    cursor: pointer;
+    color: white;
+    backdrop-filter: blur(8px);
+    transition: 0.2s;
+}
+
+.menu-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Затемнение фона */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1050;
+    backdrop-filter: blur(2px);
+}
+
+/* Кнопка "Выйти" */
+.logout-btn {
+    margin-top: auto;
+    margin-bottom: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 80%;
+    padding: 10px 0;
+    font-size: 16px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.logout-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(1.03);
+}
+
+.logout-btn:active {
+    transform: scale(0.97);
+}

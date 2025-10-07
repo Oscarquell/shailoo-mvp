@@ -1,9 +1,8 @@
 import React from 'react';
 import MainRoutes from "./routes/mainRoutes";
-import {ToastContainer} from "react-toastify";
+import {Bounce, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css'
-import ModalWindow from "./components/ModalWindow/ModalWindow";
 
 const App = () => {
     return (
@@ -11,12 +10,16 @@ const App = () => {
           <MainRoutes />
           <ToastContainer
               position="top-center"
-              autoClose={1500}
-              hideProgressBar={true}
-              newestOnTop={true}
-              closeOnClick
+              autoClose={2000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick={false}
+              rtl={false}
               pauseOnFocusLoss
+              draggable
               pauseOnHover
+              theme="light"
+              transition={Bounce}
           />
         </div>
     );

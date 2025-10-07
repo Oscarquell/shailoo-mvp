@@ -3,7 +3,7 @@ import style from "./VotersList.module.css"
 import {Voters} from "../../constants/testConstants";
 import VotersItem from "../../components/VotersItem/VotersItem";
 
-const VotersList = () => {
+const VotersList = ({voters}) => {
     return (
         <div
             className={style.container}
@@ -24,7 +24,7 @@ const VotersList = () => {
                     key={"dajwdalwiufdwgwlasdbywdlc"}
 
                 />
-                {Voters.map((voter, idx) =>
+                {voters.map((voter, idx) =>
                     <VotersItem
                         key={voter.id}
                         name={voter.name}
@@ -36,7 +36,6 @@ const VotersList = () => {
                         participatedInPreviousElections={voter.participatedInPreviousElections}
                         agitator={voter.agitator}
                         header={false}
-
                     />
                 )}
 
