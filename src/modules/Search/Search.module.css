@@ -1,25 +1,135 @@
-.FiltersParent{
+/* ======== FILTERS ======== */
+.FiltersParent {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 20px;
     padding: 20px 5%;
+    flex-wrap: wrap;
 }
 
-.SearchParent{
-    width: 90%;
-    padding: 20px 5%;
+.FiltersParent > * {
+    flex: 1;
+    min-width: 250px;
 }
 
-.searchBtn{
-    position: absolute;
-    margin-left: -55px;
-    height: 51px;
+.FiltersParent button {
+    flex: 0 0 200px;
+}
+
+/* ======== SEARCH BLOCK ======== */
+.SearchParent {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+/* === Контейнер для поля и кнопки === */
+.searchWrapper {
+    display: flex;
+    align-items: stretch;
+    width: 100%;               /* теперь растягивается во всю ширину */
+    border-radius: 5px;
+    overflow: hidden;
+    box-sizing: border-box;
+    /*background: white;*/
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+
+/* === Кнопка лупы (справа) === */
+.searchBtn {
     background: none;
     border: none;
+    border-radius: 0 5px 5px 0;
+    width: 48px;
+    height: 48px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, transform 0.15s ease;
+    flex-shrink: 0;
+}
 
-    && img{
-        width: 40px;
-        height: 40px;
+.searchBtn:hover {
+    background: #094f8a;
+    transform: scale(1.05);
+}
+
+.searchBtn img {
+    width: 30px;
+    height: 30px;
+}
+
+/* ======== ADAPTIVE ======== */
+@media (max-width: 1070px) {
+    .FiltersParent {
+        margin-top: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    .FiltersParent {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .FiltersParent button {
+        width: 100%;
+        flex: none;
+        height: 50px;
+        font-size: 16px;
+    }
+
+    .SearchParent {
+        padding: 10px 5%;
+    }
+
+    .searchWrapper {
+        width: 100%; /* оставляем всю ширину и на планшетах */
+    }
+
+    .searchBtn img {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+/* ======== iPhone SE & small phones ======== */
+@media (max-width: 400px) {
+    .FiltersParent {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .FiltersParent button {
+        width: 100%;
+        font-size: 14px;
+        height: 45px;
+    }
+
+    .SearchParent {
+        padding: 10px 5%;
+        width: 100%;
+    }
+
+    .searchWrapper {
+        width: 100%;
+    }
+
+    .searchBtn {
+        width: 45px;
+        height: auto;
+    }
+
+    .searchBtn img {
+        width: 18px;
+        height: 18px;
     }
 }
