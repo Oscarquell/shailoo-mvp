@@ -1,25 +1,114 @@
-.FiltersParent{
+/* ======== FILTERS ======== */
+.FiltersParent {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 20px;
     padding: 20px 5%;
+    flex-wrap: wrap;
 }
 
-.SearchParent{
+.FiltersParent > * {
+    flex: 1;
+    min-width: 250px;
+}
+
+.FiltersParent button {
+    flex: 0 0 200px;
+}
+
+/* ======== SEARCH BLOCK ======== */
+.SearchParent {
     width: 90%;
-    padding: 20px 5%;
+    margin: 0 auto;
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.searchBtn{
-    position: absolute;
-    margin-left: -55px;
-    height: 51px;
+.searchBtn {
+    width: 52px;
+    height: 52px;
     background: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.25);
     border: none;
-    cursor: pointer;
 
-    && img{
-        width: 40px;
-        height: 40px;
+
+}
+
+.searchBtn:hover {
+    transform: scale(1.05);
+}
+
+.searchBtn img {
+    width: 40px;
+    height: 40px;
+}
+
+/* ======== ADAPTIVE ======== */
+@media (max-width: 768px) {
+    .FiltersParent {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .FiltersParent button {
+        width: 100%;
+        flex: none;
+        height: 50px;
+        font-size: 16px;
+    }
+
+    .SearchParent {
+        flex-direction: row;
+        align-items: center;
+        padding: 10px 5%;
+        gap: 10px;
+    }
+
+    .searchBtn img {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+@media (max-width: 1070px) {
+    .FiltersParent {
+        margin-top: 50px;
+    }
+}
+
+/* ======== iPhone SE & small phones ======== */
+@media (max-width: 400px) {
+    .FiltersParent {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .FiltersParent button {
+        width: 100%;
+        font-size: 14px;
+        height: 45px;
+    }
+
+    .SearchParent {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px 15px;
+        width: 100%;
+    }
+
+    .searchBtn {
+        align-self: center;
+        width: 42px;
+        height: 42px;
+    }
+
+    .searchBtn img {
+        width: 20px;
+        height: 20px;
     }
 }

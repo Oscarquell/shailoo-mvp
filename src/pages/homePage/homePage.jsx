@@ -4,6 +4,7 @@ import VotersList from "../../modules/VotersList/VotersList";
 import Pagination from "../../modules/Pagination/Pagination";
 import {Voters} from "../../constants/testConstants";
 import {axiosInstance} from "../../API/api";
+import {getVotersList} from "../../API/getVoterList";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -13,20 +14,20 @@ const HomePage = () => {
 
     const totalPages = Math.max(1, Math.ceil((Voters?.length || 0) / ITEMS_PER_PAGE));
 
-    const getVotersList = async () => {
-        const voters = await axiosInstance.get('/voters');
-        const response = await voters;
-        setVoters(response.data);
+    async function getVoters() {
+        const voters = await getVotersList()
+        setVoters(voters)
     }
 
     useEffect(() => {
-        getVotersList()
+        getVoters()
     }, [])
 
     return (
         <>
+
             <Search />
-            <VotersList voters={voters} />
+            <VotersList setVoters={setVoters} voters={voters} />
             {totalPages > 1 && (
                 <Pagination
                     page={page}
@@ -36,6 +37,8 @@ const HomePage = () => {
             )}
         </>
     );
+
 };
+
 
 export default HomePage;
