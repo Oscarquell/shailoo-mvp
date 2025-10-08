@@ -11,27 +11,42 @@ const InputComponent = ({ id, value, onChange, label, sx }) => {
             variant="outlined"
             fullWidth
             sx={{
-                backgroundColor: '#fff',
+                color: '#fff',
                 borderRadius: '10px',
+                background: 'transparent',
                 '& .MuiOutlinedInput-root': {
                     borderRadius: '10px',
+                    color: '#fff',
                     '& fieldset': {
-                        borderColor: '#cfcfcf',
+                        borderColor: '#00e676',
+                        transition: 'border-color 0.2s ease',
                     },
                     '&:hover fieldset': {
-                        borderColor: '#1976d2',
+                        borderColor: '#00e676',
                     },
                     '&.Mui-focused fieldset': {
-                        borderColor: '#1976d2',
-                        boxShadow: '0 0 0 2px rgba(25, 118, 210, 0.2)',
+                        borderColor: '#00e676 !important', // 🔴 рамка при фокусе
+                        boxShadow: 'none',
                     },
+                },
+                '& .Mui-focused .MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#00e676 !important', // 🔴 убирает синий MUI-эффект
                 },
                 '& .MuiInputLabel-root': {
                     fontSize: '14px',
-                    color: '#555',
+                    color: 'rgba(255,255,255,0.8)',
+                    transition: 'color 0.2s ease',
+                },
+                '& .MuiInputLabel-root.Mui-focused': {
+                    color: '#00e676 !important', // 🔴 лейбл при фокусе
                 },
                 '& .MuiInputBase-input': {
                     padding: '14px',
+                    color: '#fff', // белый текст при вводе
+                },
+                '& .MuiInputBase-input::placeholder': {
+                    color: '#fff', // белый плейсхолдер
+                    opacity: 1,
                 },
                 ...sx,
             }}

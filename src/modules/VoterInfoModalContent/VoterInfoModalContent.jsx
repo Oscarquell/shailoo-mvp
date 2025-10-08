@@ -4,6 +4,7 @@ import style from "./VoterInfoModalContent.module.css";
 import { Button } from "@mui/material";
 import {getVotersList} from "../../API/getVoterList";
 import {useNavigate} from "react-router-dom";
+import {showError} from "../../utils/alerts";
 
 const VoterInfoModalContent = ({ id, setIsOpened, setVoters }) => {
     const [voter, setVoter] = useState({});
@@ -21,7 +22,8 @@ const VoterInfoModalContent = ({ id, setIsOpened, setVoters }) => {
             setNewVoter(data);
             console.log(data)
         } catch (e) {
-            navigate("/login")
+
+            // navigate("/login")
         }
     }
 
@@ -59,7 +61,16 @@ const VoterInfoModalContent = ({ id, setIsOpened, setVoters }) => {
             setEdit(false);
             console.log("Избиратель успешно обновлён:", data);
         } catch (e) {
-            navigate("/login")
+            try {
+                // Берём первый ключ из объекта деталей ошибки
+                const errorObj = e.response?.data.details || {};
+                const firstKey = Object.keys(errorObj)[0];
+                const firstValue = errorObj[firstKey];
+
+                showError( firstValue || "Неизвестная ошибка");
+            } catch {
+                showError( "Произошла ошибка при добавлении избирателя");
+            }
         }
     }
 
@@ -69,7 +80,16 @@ const VoterInfoModalContent = ({ id, setIsOpened, setVoters }) => {
             getVoters()
             setIsOpened(false)
         } catch (e) {
-            navigate("/login")
+            try {
+                // Берём первый ключ из объекта деталей ошибки
+                const errorObj = e.response?.data.details || {};
+                const firstKey = Object.keys(errorObj)[0];
+                const firstValue = errorObj[firstKey];
+
+                showError( firstValue || "Неизвестная ошибка");
+            } catch {
+                showError( "Произошла ошибка при добавлении избирателя");
+            }
         }
     }
 
@@ -94,7 +114,13 @@ const VoterInfoModalContent = ({ id, setIsOpened, setVoters }) => {
 
     return (
         <div className={style.modalContent}>
-            <h2 className={style.title}>{voter?.name}</h2>
+            {edit ?
+                <div style={{marginBottom: 20}}>
+                    <input value={voter?.name} className={style.TitleInput} type="text"/>
+                </div>
+                :
+                <h2 className={style.title}>{voter?.name}</h2>
+            }
 
             <div className={style.infoCard}>
                 <div className={style.infoBlock}>
@@ -211,6 +237,9 @@ const VoterInfoModalContent = ({ id, setIsOpened, setVoters }) => {
 
             {edit ? (
                 <div className={style.buttons}>
+                    <Button onClick={() => setEdit(false)} variant="contained" className={style.deleteBtn}>
+                        Отмена
+                    </Button>
                     <Button
                         variant="contained"
                         className={style.editBtn}

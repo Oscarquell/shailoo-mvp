@@ -12,6 +12,20 @@
     background: linear-gradient(135deg, #0E62AA 0%, #39B54A 100%);
     border-radius: 5px;
     color: white;
+    overflow-y: auto;
+}
+
+/* стили для scrollbar */
+.window::-webkit-scrollbar {
+    width: 4px;
+    border-radius: 5px;
+}
+.window::-webkit-scrollbar-thumb {
+    background: #0E62AA;
+    border-radius: 5px;
+}
+.window::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #0E62AA 0%, #39B54A 100%);
 }
 
 .header{
@@ -30,7 +44,7 @@
 }
 
 .body{
-    overflow: auto;
+    /*overflow: auto;*/
     height: 100%;
     width: 100%;
 }

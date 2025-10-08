@@ -7,18 +7,18 @@ import {axiosInstance} from "../../API/api";
 import {getVotersList} from "../../API/getVoterList";
 import {useNavigate} from "react-router-dom";
 
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 50;
 
 const HomePage = () => {
     const [page, setPage] = useState(1);
     const [voters, setVoters] = useState([]);
     const navigate = useNavigate()
 
-    const totalPages = Math.max(1, Math.ceil((Voters?.length || 0) / ITEMS_PER_PAGE));
+    const totalPages = Math.max(1, Math.ceil((voters?.length || 0) / ITEMS_PER_PAGE));
 
     async function getVoters() {
         try {
-            const voters = await getVotersList();
+            const voters = await getVotersList(page);
             setVoters(voters);
         } catch (e) {
             navigate("/login")
@@ -32,7 +32,7 @@ const HomePage = () => {
     return (
         <>
 
-            <Search />
+            <Search setPage={setPage} setVoters={setVoters} />
             <VotersList setVoters={setVoters} voters={voters} />
             {totalPages > 1 && (
                 <Pagination

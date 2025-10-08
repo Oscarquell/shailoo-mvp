@@ -1,69 +1,228 @@
-.title{
+/* ===== Общий контейнер ===== */
+form {
     display: flex;
-    justify-content: center;
-    color: #0e62aa;
-    font-size: 34px;
-    margin: 20px 5% 20px 5%;
-    /*width: 90%;*/
-    gap: 60px;;
-    background: white;
-    border-radius: 5px;
-    padding: 10px 15px;
-
-
-
-    && input{
-        font-size: 34px;
-        color: #0e62aa;
-        outline: none;
-        border: 1px solid black;
-        width: 200px;
-    }
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    padding: 30px 20px;
+    width: 100%;
+    color: #fff;
+    box-sizing: border-box;
 }
 
-.parent{
-    color: #666;
-    margin: 40px 5%;
-    /*width: 89%;*/
+/* ===== Заголовок ===== */
+.title {
     display: flex;
     justify-content: center;
-    gap: 60px;
-    font-size: 18px;
-    line-height: 1.8;
-    background-color: #f9fbfd;
+    align-items: center;
+    gap: 15px;
+    width: 90%;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(6px);
+    text-align: center;
+}
+
+.title span {
+    color: #fff;
+}
+
+.title input {
+    font-size: 22px;
+    color: #fff;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    padding: 6px 12px;
+    width: 90%;
+    /*width: 280px;*/
+    outline: none;
+    transition: 0.3s;
+}
+
+.title input:focus {
+    border-color: #00e676;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* ===== Основная сетка ===== */
+.parent {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    column-gap: 20px;
+    row-gap: 14px;
+    width: 90%;
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     padding: 20px;
-    box-shadow: inset 0 0 12px rgba(14, 98, 170, 0.15);
-    && input{
-        color: black;
-        outline: none;
-        border: 1px solid black;
-        width: 100px;
-    }
+    backdrop-filter: blur(6px);
+    transition: 0.3s ease;
 }
 
-.parent input{
-    color: #666;
-}
-
-.infoBlock:first-child{
+/* ===== Подписи ===== */
+.parent label {
+    display: flex;
+    align-items: center;
     font-weight: 500;
+    color: #e0f7fa;
+    font-size: 16px;
 }
 
-.infoBlock div{
-    height: 50px;
+/* ===== Поля ===== */
+.parent input,
+.parent select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    transition: 0.25s;
+    box-sizing: border-box;
 }
 
-.buttons{
-    color: #666;
-    margin: 40px 3%;
-    display: flex;
-    justify-content: center;
-    gap: 60px;
+.parent select option{
+    background: rgba(255, 255, 255, 0.1);
+    color: black;
+}
+
+.parent input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.parent input:focus,
+.parent select:focus {
+    border-color: #00e676;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* ===== Кнопка ===== */
+.buttons {
+    width: 90%;
+    margin-top: 15px;
+}
+
+.editBtn {
+    background: linear-gradient(90deg, #00c853, #0091ea);
+    color: white !important;
     font-size: 18px;
-    line-height: 1.8;
-    background-color: #f9fbfd;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: inset 0 0 12px rgba(14, 98, 170, 0.15);
+    padding: 12px 0 !important;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    width: 100%;
+}
+
+.editBtn:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* ====== Адаптив ====== */
+
+/* — Планшеты (до 1024px) — */
+@media (max-width: 1024px) {
+    .title {
+        font-size: 22px;
+    }
+
+    .parent {
+        width: 95%;
+        grid-template-columns: 160px 1fr;
+    }
+
+    .title input {
+        /*width: 250px;*/
+        width: 90%;
+    }
+}
+
+/* — Смартфоны (до 768px) — */
+@media (max-width: 768px) {
+    .title {
+        flex-direction: column;
+        gap: 10px;
+        font-size: 20px;
+    }
+
+    .title input {
+        width: 90%;
+        font-size: 18px;
+    }
+
+    .parent {
+        grid-template-columns: 1fr;
+        row-gap: 18px;
+        width: 95%;
+        padding: 15px;
+    }
+
+    .parent label {
+        margin-bottom: 6px;
+        font-size: 15px;
+    }
+
+    .buttons {
+        width: 95%;
+    }
+
+    .editBtn {
+        font-size: 17px;
+    }
+}
+
+/* — Мелкие смартфоны (до 480px, например iPhone SE) — */
+@media (max-width: 480px) {
+    .title {
+        width: 100%;
+        font-size: 18px;
+        padding: 10px;
+    }
+
+    .parent {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+    }
+
+    .parent input,
+    .parent select {
+        font-size: 15px;
+        padding: 8px 10px;
+    }
+
+    .buttons {
+        width: 100%;
+    }
+
+    .editBtn {
+        font-size: 16px;
+        padding: 10px 0 !important;
+    }
+}
+
+/* — Очень узкие экраны (до 360px) — */
+@media (max-width: 360px) {
+    .title {
+        font-size: 16px;
+    }
+
+    .parent {
+        padding: 10px;
+    }
+
+    .parent label {
+        font-size: 14px;
+    }
+
+    .parent input,
+    .parent select {
+        font-size: 14px;
+    }
 }
