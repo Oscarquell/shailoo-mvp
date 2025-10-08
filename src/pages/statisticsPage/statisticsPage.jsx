@@ -8,11 +8,11 @@ import {
     CartesianGrid,
     Tooltip,
     Legend,
-    PieChart,
-    Pie,
+ BarChart, Bar, Rectangle,
 } from "recharts";
 import "./statistics.css";
 import {axiosInstance} from "../../API/api";
+import {testAgitators} from "../../constants/testAgitators";
 
 export default function StatisticsPage() {
 
@@ -29,12 +29,6 @@ export default function StatisticsPage() {
         getStatistics()
     }, [])
 
-    const data = [
-        { name: 'Group A', value: 400 },
-        { name: 'Group B', value: 300 },
-        { name: 'Group C', value: 300 },
-        { name: 'Group D', value: 200 },
-    ];
 
     return (
         <div className="statistics-container">
@@ -108,7 +102,7 @@ export default function StatisticsPage() {
                 </LineChart>
             </ResponsiveContainer>
 
-            <h2 className="chart-title">Статистика по избирательным участкам за этот год</h2>
+            <h2 className="chart-title">Потенциал по избирательным участкам за этот год</h2>
             <ResponsiveContainer width="95%" height="80%">
                 <LineChart data={votes} margin={{ top: 10, right: 30, left: 0, bottom: 10 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#ffffff" />
@@ -143,7 +137,27 @@ export default function StatisticsPage() {
                 </LineChart>
             </ResponsiveContainer>
 
-
+            <h2 className="chart-title">Статсистика по агитаторам</h2>
+            <ResponsiveContainer width="95%" height="80%">
+                <BarChart
+                    width={500}
+                    height={300}
+                    data={testAgitators}
+                    margin={{
+                        top: 5,
+                        right: 30,
+                        left: 20,
+                        bottom: 5,
+                    }}
+                >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey='name'  />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="uv" fill="#82ca9d" activeBar={<Rectangle fill="pink" stroke="purple" />} />
+                </BarChart>
+            </ResponsiveContainer>
         </div>
     );
 }

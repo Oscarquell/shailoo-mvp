@@ -91,11 +91,15 @@ const AddVoterModalContent = ({setIsOpened}) => {
                     <label>Номер участка:</label>
                     <select onChange={(e) => handleInputChange("pollingStationNumber", e.target.value)}>
                         <option value="">Выберите участок</option>
-                        {pollingStations.sort((a, b) => a.pollingStationNumber - b.pollingStationNumber).map((item) => (
-                            <option key={item.pollingStationNumber} value={item.pollingStationNumber}>
-                                {item.pollingStationNumber}
+                        {/*{pollingStations.sort((a, b) => a.pollingStationNumber - b.pollingStationNumber).map((item) => (*/}
+                        {/*    <option key={item.pollingStationNumber} value={item.pollingStationNumber}>*/}
+                        {/*        {item.pollingStationNumber}*/}
+                        {/*    </option>*/}
+                        {/*))}*/}
+
+                            <option>
+                                1102
                             </option>
-                        ))}
                     </select>
 
                     <label>Агитатор:</label>
