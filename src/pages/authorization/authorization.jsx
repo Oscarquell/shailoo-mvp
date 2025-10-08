@@ -41,6 +41,8 @@ const Authorization = () => {
                 password: password
             });
 
+            console.log(response.data , 'TEST_DATA');
+
             const { accessToken, refreshToken } = response.data;
 
             if (accessToken && refreshToken) {
@@ -50,13 +52,13 @@ const Authorization = () => {
                 if (decoded?.fullName) {
                     localStorage.setItem("userName", decoded.fullName);
                 }
-                showSuccess('Вы успешно вошли!', `Добро пожаловать, ${decoded.fullName}`);
+                showSuccess('Вы успешно вошли!', `Добро пожаловать, ${decoded.fullName} !`);
                 navigate("/");
             } else {
                 showError('Ошибка', 'Неверный формат ответа от сервера');
             }
         } catch (error) {
-            console.error("Ошибка входа:", error);
+            e.preventDefault();
             if (error.response?.status === 401) {
                 showError('Ошибка авторизации', 'Неверный логин или пароль');
             } else {
