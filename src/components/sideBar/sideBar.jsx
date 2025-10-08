@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Menu, X, LogOut } from "lucide-react";
 import "./sidebar.css";
+import {logout} from "../../utils/logout";
 
 export default function Sidebar() {
     const navigate = useNavigate();
@@ -20,6 +21,7 @@ export default function Sidebar() {
     const handleLogout = () => {
         setIsOpen(false);
         navigate("/login");
+        logout()
     };
 
     return (
