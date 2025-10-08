@@ -14,6 +14,7 @@ import "./statistics.css";
 import {axiosInstance} from "../../API/api";
 import {testAgitators} from "../../constants/testAgitators";
 
+
 export default function StatisticsPage() {
 
     const [votes, setVotes] = useState([])
@@ -158,6 +159,7 @@ export default function StatisticsPage() {
                     <Bar dataKey="uv" fill="#82ca9d" activeBar={<Rectangle fill="pink" stroke="purple" />} />
                 </BarChart>
             </ResponsiveContainer>
+
         </div>
     );
 }
