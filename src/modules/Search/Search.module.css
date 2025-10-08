@@ -21,7 +21,7 @@
 .SearchParent {
     width: 100%;
     margin: 0 auto;
-    padding: 20px 5%;
+    padding: 0 5% 15px;
     display: flex;
     align-items: center;
     justify-content: center;

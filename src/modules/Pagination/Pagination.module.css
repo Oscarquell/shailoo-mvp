@@ -9,31 +9,33 @@
 .paginationButton {
     /*padding: 8px 12px;*/
     border: 1px solid #ccc;
-    background-color: #fff;
+    background: rgba(255, 255, 255, 0.12);
     cursor: pointer;
     border-radius: 4px;
     transition: background-color 0.2s;
     font-size: 24px;
+    color: white;
 }
 
 .paginationButton:disabled {
-    background-color: #f0f0f0;
+    background: rgba(255, 255, 255, 0.05);
     cursor: not-allowed;
 }
 
 .paginationItem {
     padding: 8px 12px;
     border: 1px solid #ccc;
-    background-color: #fff;
+    background: rgba(255, 255, 255, 0.12);
     cursor: pointer;
     border-radius: 4px;
     transition: background-color 0.2s;
+    color: white;
 }
 
 .paginationItem.active {
-    background-color: white;
-    color: black;
-    border-color: #000000;
+    background: #0e62aa;
+    color: white;
+    border-color: rgb(255, 255, 255);
 }
 
 .ellipsis {
