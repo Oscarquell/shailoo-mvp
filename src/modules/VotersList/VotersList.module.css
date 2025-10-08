@@ -3,15 +3,15 @@
     width: 100%;
     /*max-width: 1200px;*/
     font-size: 16px;
-    color: #222;
+    color: #fff;
     box-sizing: border-box;
     padding: 10px;
 
     /* Важно: контейнер занимает всю высоту экрана, чтобы скролл был только внутри таблицы */
-    height: 70vh;
+    height: 76vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /*justify-content: center;*/
 }
 
 /* таблица */
@@ -70,24 +70,73 @@
     }
 }
 
-/* 📲 Планшеты */
-@media (min-width: 601px) and (max-width: 992px) {
+@media (max-width: 600px) {
     .container {
-        width: 90%;
-        font-size: 15px;
+        width: 95%;
+        font-size: 14px;
+        padding: 5px;
+
+        /* фиксируем высоту и не даем странице скроллиться */
         height: 70vh;
         overflow: hidden;
     }
 
     .table {
-        max-height: 80vh;
+        border-radius: 6px;
+        box-shadow: none;
+
+        /* внутренняя прокрутка только таблицы */
+        max-height: 55vh;
+        overflow-y: auto;
     }
 }
 
-/* 💻 Большие экраны */
-@media (min-width: 1200px) {
+@media (max-width: 1070px) {
     .container {
-        /*max-width: 1300px;*/
-        font-size: 17px;
+        height: 77vh;
+    }
+
+    .table {
+
+        max-height: 74vh;
     }
 }
+
+@media (max-width: 822px) {
+    .container {
+
+        /* фиксируем высоту и не даем странице скроллиться */
+        height: 77vh;
+    }
+
+    .table {
+        max-height: 74vh;
+    }
+}
+
+@media (max-height: 820px) {
+    .container {
+        height: 60vh;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        height: 50vh;
+    }
+}
+
+/* 📲 Планшеты */
+/*@media (min-width: 601px) and (max-width: 992px) {*/
+/*    .container {*/
+/*        width: 90%;*/
+/*        font-size: 15px;*/
+/*        height: 70vh;*/
+/*        overflow: hidden;*/
+/*    }*/
+
+/*    .table {*/
+/*        max-height: 80vh;*/
+/*    }*/
+/*}*/
+

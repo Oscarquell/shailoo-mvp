@@ -2,20 +2,27 @@ import React, { useEffect, useState } from "react";
 import style from "./AddVoterModalContent.module.css";
 import { axiosInstance } from "../../API/api";
 import { Button } from "@mui/material";
+import {showError, showSuccess} from "../../utils/alerts";
 
-const AddVoterModalContent = () => {
+const AddVoterModalContent = ({setIsOpened}) => {
     const [pollingStations, setPollingStations] = useState([]);
-    const [newVoterObj, setNewVoterObj] = useState({});
+    const [newVoterObj, setNewVoterObj] = useState({source: "new"});
 
-    // === Получение участков ===
+// === Получение участков ===
     async function getPollingStations() {
         try {
             const { data } = await axiosInstance.get("/polling-stations/statistics");
             setPollingStations(data);
         } catch (e) {
+
+
             console.error("Ошибка при загрузке участков:", e);
+            // const errorObj = e.response?.data || {};
+            // const firstKey = Object.keys(errorObj)[0];
+            // const firstValue = errorObj[firstKey];
         }
     }
+
 
     const handleInputChange = (field, value) => {
         let parsedValue = value;
@@ -37,10 +44,21 @@ const AddVoterModalContent = () => {
     // === Отправка нового избирателя ===
     async function newVoter() {
         try {
-            const { data } = await axiosInstance.post("/voters", newVoterObj);
-            console.log("✅ Избиратель успешно добавлен:", data);
+            await axiosInstance.post("/voters", newVoterObj);
+            showSuccess("✅ Избиратель успешно добавлен:");
+            setIsOpened(false);
         } catch (e) {
-            console.error("Ошибка при добавлении избирателя:", e);
+            console.log(e)
+            try {
+                // Берём первый ключ из объекта деталей ошибки
+                const errorObj = e.response?.data.details || {};
+                const firstKey = Object.keys(errorObj)[0];
+                const firstValue = errorObj[firstKey];
+
+                showError( firstValue || "Неизвестная ошибка");
+            } catch {
+                showError( "Произошла ошибка при добавлении избирателя");
+            }
         }
     }
 
@@ -64,81 +82,48 @@ const AddVoterModalContent = () => {
                 </div>
 
                 <div className={style.parent}>
-                    <div className={style.infoBlock}>
-                        <div>ИНН:</div>
-                        <div>Адрес:</div>
-                        <div>Номер участка:</div>
-                        <div>Агитатор:</div>
-                        <div>Участие раньше:</div>
-                        <div>Телефон:</div>
-                        <div>Источник:</div>
-                    </div>
+                    <label>ИНН:</label>
+                    <input type="text" onChange={(e) => handleInputChange("pin", e.target.value)} />
 
-                    <div className={style.infoBlock}>
-                        <div>
-                            <input
-                                type="text"
-                                onChange={(e) => handleInputChange("pin", e.target.value)}
-                            />
-                        </div>
-                        <div>
-                            <input
-                                type="text"
-                                onChange={(e) => handleInputChange("address", e.target.value)}
-                            />
-                        </div>
-                        <div>
-                            <select
-                                onChange={(e) =>
-                                    handleInputChange("pollingStationNumber", e.target.value)
-                                }
-                            >
-                                <option value="">Выберите участок</option>
-                                {pollingStations.map((item) => (
-                                    <option
-                                        key={item.pollingStationNumber}
-                                        value={item.pollingStationNumber}
-                                    >
-                                        {item.pollingStationNumber}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div>
-                            <input
-                                type="text"
-                                onChange={(e) => handleInputChange("agitator", e.target.value)}
-                            />
-                        </div>
-                        <div>
-                            <select
-                                onChange={(e) =>
-                                    handleInputChange("participatedInPreviousElections", e.target.value)
-                                }
-                            >
-                                <option value="">Выберите статус</option>
-                                <option value="null">Неизвестно</option>
-                                <option value="true">Да</option>
-                                <option value="false">Нет</option>
-                            </select>
-                        </div>
-                        <div>
-                            <input
-                                type="text"
-                                onChange={(e) => handleInputChange("phone", e.target.value)}
-                            />
-                        </div>
-                        <div>
-                            <select
-                                onChange={(e) => handleInputChange("source", e.target.value)}
-                            >
-                                <option value="">Выберите источник</option>
-                                <option value="new">Новый</option>
-                                <option value="old">Из старой базы</option>
-                            </select>
-                        </div>
-                    </div>
+                    <label>Адрес:</label>
+                    <input type="text" onChange={(e) => handleInputChange("address", e.target.value)} />
+
+                    <label>Номер участка:</label>
+                    <select onChange={(e) => handleInputChange("pollingStationNumber", e.target.value)}>
+                        <option value="">Выберите участок</option>
+                        {pollingStations.sort((a, b) => a.pollingStationNumber - b.pollingStationNumber).map((item) => (
+                            <option key={item.pollingStationNumber} value={item.pollingStationNumber}>
+                                {item.pollingStationNumber}
+                            </option>
+                        ))}
+                    </select>
+
+                    <label>Агитатор:</label>
+                    <input type="text" onChange={(e) => handleInputChange("agitator", e.target.value)} />
+
+                    <label>Участие раньше:</label>
+                    <select onChange={(e) => handleInputChange("participatedInPreviousElections", e.target.value)}>
+                        <option value="">Выберите статус</option>
+                        <option value="null">Неизвестно</option>
+                        <option value="true">Да</option>
+                        <option value="false">Нет</option>
+                    </select>
+
+                    <label>Телефон:</label>
+                    <input type="text" onChange={(e) => handleInputChange("phone", e.target.value)} />
+
+                    <label>Источник:</label>
+                    <select
+                        value={newVoterObj.source || ""}
+                        onChange={(e) => handleInputChange("source", e.target.value)}
+                    >
+                        <option value="">Выберите источник</option>
+                        <option value="new">Новый</option>
+                        <option value="old">Из старой базы</option>
+                    </select>
+
                 </div>
+
 
                 <div className={style.buttons}>
                     <Button

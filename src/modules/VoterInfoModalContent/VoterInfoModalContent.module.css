@@ -4,11 +4,11 @@
     /*box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);*/
     width: 90%;
     margin: 0 auto;
-    color: #333;
+    color: #fff;
 }
 
 .modalContent > * {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.12);
     border-radius: 18px;
     padding: 30px 25px;
 }
@@ -17,7 +17,7 @@
     text-align: center;
     font-size: 24px;
     font-weight: 600;
-    color: #0e62aa;
+    color: #fff;
     margin-bottom: 20px;
 }
 
@@ -27,10 +27,14 @@
     gap: 60px;
     font-size: 18px;
     line-height: 1.8;
-    background-color: #f9fbfd;
-    border-radius: 12px;
     padding: 20px;
     box-shadow: inset 0 0 12px rgba(14, 98, 170, 0.15);
+
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(6px);
+    text-align: center;
 }
 
 .infoBlock {
@@ -42,7 +46,7 @@
 }
 
 .infoBlock:first-child {
-    color: #666;
+    color: #fff;
     font-weight: 600;
 }
 
@@ -92,6 +96,49 @@
     display: flex;
     gap: 20px;
 }
+
+
+
+.infoBlock input,
+.infoBlock select,
+.TitleInput{
+    width: 100%;
+    /*padding: 10px 12px;*/
+    border-radius: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    transition: 0.25s;
+    box-sizing: border-box;
+}
+
+.TitleInput{
+    font-size: 36px;
+}
+
+.infoBlock select option{
+    background: rgba(255, 255, 255, 0.1);
+    color: black;
+}
+
+.infoBlock input::placeholder,
+.TitleInput::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.infoBlock input:focus,
+.infoBlock select:focus,
+.TitleInput:focus {
+    border-color: #00e676;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.infoBlock div{
+    height: 30px;
+}
+
 
 @media (max-width: 600px) {
     .modalContent {
