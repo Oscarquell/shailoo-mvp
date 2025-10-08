@@ -9,8 +9,8 @@ const App = () => {
         <div className="background">
           <MainRoutes />
           <ToastContainer
-              position="top-center"
-              autoClose={2000}
+              position="bottom-center"
+              autoClose={2500}
               hideProgressBar={false}
               newestOnTop={false}
               closeOnClick={false}

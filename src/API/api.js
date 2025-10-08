@@ -1,6 +1,7 @@
 import axios from "axios";
 import { getToken, setToken } from "./token";
 import { updateAccessToken } from "./updateToke";
+import {showWarning} from "../utils/alerts";
 
 const axiosInstance = axios.create({
     // baseURL: "http://localhost:8080/api/",
@@ -34,7 +35,7 @@ axiosInstance.interceptors.response.use(
                     return axiosInstance(originalRequest);
                 }
             } catch (refreshError) {
-                console.warn("🔒 Refresh token invalid — redirecting to login");
+                showWarning('Внимание!', '🔒 Рефреш токен невалиден - перенаправляю на страницу авторизации')
                 localStorage.clear();
                 window.location.href = "/login";
             }
