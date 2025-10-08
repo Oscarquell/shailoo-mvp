@@ -38,7 +38,7 @@ export default function StatisticsPage() {
 
     return (
         <div className="statistics-container">
-            <h2 className="chart-title">Общая статистика по избирательным участкам</h2>
+            <h2 className="chart-title">Общий потенциал по избирательным участкам</h2>
             <ResponsiveContainer width="95%" height="80%">
                 <LineChart data={votes} margin={{ top: 10, right: 30, left: 0, bottom: 10 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#ffffff" />
@@ -73,7 +73,7 @@ export default function StatisticsPage() {
                 </LineChart>
             </ResponsiveContainer>
 
-            <h2 className="chart-title">Статистика по избирательным участкам за прошлый год</h2>
+            <h2 className="chart-title">Потенциал по избирательным участкам за прошлые выборы</h2>
             <ResponsiveContainer width="95%" height="80%">
                 <LineChart data={votes} margin={{ top: 10, right: 30, left: 0, bottom: 10 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#ffffff" />
