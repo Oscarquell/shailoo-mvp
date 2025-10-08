@@ -125,3 +125,18 @@
 .logout-btn:active {
     transform: scale(0.97);
 }
+
+
+/* Логотип */
+.sidebar-logo {
+    width: 120px;
+    height: auto;
+    border-radius: 10px;
+    object-fit: contain;
+    margin-bottom: 25px;
+    transition: transform 0.3s ease;
+}
+
+.sidebar-logo:hover {
+    transform: scale(1.05);
+}
