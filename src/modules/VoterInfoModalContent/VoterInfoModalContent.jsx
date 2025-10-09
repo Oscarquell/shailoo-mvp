@@ -4,9 +4,9 @@ import style from "./VoterInfoModalContent.module.css";
 import { Button } from "@mui/material";
 import {getVotersList} from "../../API/getVoterList";
 import {useNavigate} from "react-router-dom";
-import {showError} from "../../utils/alerts";
+import {showError, showSuccess} from "../../utils/alerts";
 
-const VoterInfoModalContent = ({ id, setIsOpened, setVoters }) => {
+const VoterInfoModalContent = ({getVoters, id, setIsOpened, setVoters }) => {
     const [voter, setVoter] = useState({});
     const [edit, setEdit] = useState(false);
     const [pollingStations, setPollingStations] = useState([]);
@@ -14,14 +14,15 @@ const VoterInfoModalContent = ({ id, setIsOpened, setVoters }) => {
     const [confirmDelete, setConfirmDelete] = useState(false)
     const navigate = useNavigate()
 
+
     // === Получение данных избирателя ===
     async function getVoter() {
         try {
             const { data } = await axiosInstance.get(`/voters/${id}`);
             setVoter(data);
-            setNewVoter(data);
-            console.log(data)
+            setNewVoter({...data, pollingStationId: data.pollingStation.poolingStationId});
         } catch (e) {
+            console.error(e);
 
             // navigate("/login")
         }
@@ -30,10 +31,11 @@ const VoterInfoModalContent = ({ id, setIsOpened, setVoters }) => {
     // === Получение списка участков ===
     async function getPollingStations() {
         try {
-            const { data } = await axiosInstance.get("/polling-stations/statistics");
+            const { data } = await axiosInstance.get("/polling-stations");
             setPollingStations(data);
         } catch (e) {
-            navigate("/login")
+            console.error(e);
+            showError("Ошибка при получении Избирательных участков!")
         }
     }
 
@@ -53,23 +55,23 @@ const VoterInfoModalContent = ({ id, setIsOpened, setVoters }) => {
                 pollingStationNumber: Number(newVoter.pollingStationNumber)
             };
 
-            console.log(payload)
 
             const {data} = await axiosInstance.put(`/voters/${id}`, payload);
 
-            // setVoter(payload);
+            setVoter(data);
+            getVoters()
             setEdit(false);
-            console.log("Избиратель успешно обновлён:", data);
+            showSuccess("Избиратель успешно обновлен!")
         } catch (e) {
+            console.log(e)
             try {
                 // Берём первый ключ из объекта деталей ошибки
                 const errorObj = e.response?.data.details || {};
                 const firstKey = Object.keys(errorObj)[0];
                 const firstValue = errorObj[firstKey];
-
                 showError( firstValue || "Неизвестная ошибка");
             } catch {
-                showError( "Произошла ошибка при добавлении избирателя");
+                showError( "Произошла ошибка при изменении избирателя");
             }
         }
     }
@@ -78,6 +80,7 @@ const VoterInfoModalContent = ({ id, setIsOpened, setVoters }) => {
         try {
             await axiosInstance.delete(`/voters/${id}`)
             getVoters()
+            showSuccess("Избиратель успешно удвлен!")
             setIsOpened(false)
         } catch (e) {
             try {
@@ -90,17 +93,6 @@ const VoterInfoModalContent = ({ id, setIsOpened, setVoters }) => {
             } catch {
                 showError( "Произошла ошибка при добавлении избирателя");
             }
-        }
-    }
-
-    async function getVoters() {
-        try {
-            const voters = await getVotersList()
-            setVoters(voters)
-            setIsOpened(false)
-        } catch (e) {
-            navigate("/login")
-
         }
     }
 
@@ -116,7 +108,7 @@ const VoterInfoModalContent = ({ id, setIsOpened, setVoters }) => {
         <div className={style.modalContent}>
             {edit ?
                 <div style={{marginBottom: 20}}>
-                    <input value={voter?.name} className={style.TitleInput} type="text"/>
+                    <input onChange={(e) => setNewVoter({ ...newVoter, name: e.target.value })} value={newVoter?.name} className={style.TitleInput} type="text"/>
                 </div>
                 :
                 <h2 className={style.title}>{voter?.name}</h2>
@@ -127,9 +119,9 @@ const VoterInfoModalContent = ({ id, setIsOpened, setVoters }) => {
                     <div>ID:</div>
                     <div>ИНН:</div>
                     <div>Адрес:</div>
-                    <div>Номер участка:</div>
+                    <div>Номер&nbsp;участка:</div>
                     <div>Агитатор:</div>
-                    <div>Участие раньше:</div>
+                    <div>Участие&nbsp;раньше:</div>
                     <div>Телефон:</div>
                     <div>Избиратель:</div>
                 </div>
@@ -155,14 +147,14 @@ const VoterInfoModalContent = ({ id, setIsOpened, setVoters }) => {
                             <div>
                                 <select
                                     onChange={(e) =>
-                                        setNewVoter({ ...newVoter, pollingStationNumber: e.target.value })
+                                        setNewVoter({ ...newVoter, pollingStationId: Number(e.target.value) })
                                     }
-                                    value={newVoter?.pollingStationNumber || ""}
+                                    value={newVoter?.pollingStationId || ""}
                                 >
                                     {pollingStations.map((item) => (
                                         <option
-                                            key={item.pollingStationNumber}
-                                            value={item.pollingStationNumber}
+                                            key={item.poolingStationId}
+                                            value={item.poolingStationId}
                                         >
                                             {item.pollingStationNumber}
                                         </option>
@@ -219,7 +211,7 @@ const VoterInfoModalContent = ({ id, setIsOpened, setVoters }) => {
                             <div>{voter?.id}</div>
                             <div>{voter?.pin}</div>
                             <div>{voter?.address}</div>
-                            <div>{voter?.pollingStationNumber}</div>
+                            <div>{voter?.pollingStation?.pollingStationNumber}</div>
                             <div>{voter?.agitator}</div>
                             <div>
                                 {voter?.participatedInPreviousElections
@@ -228,7 +220,7 @@ const VoterInfoModalContent = ({ id, setIsOpened, setVoters }) => {
                                         ? "Неизвестно"
                                         : "Нет"}
                             </div>
-                            <div>{voter?.phone}</div>
+                            <div><a style={{color: "white"}} href={`tel:${voter?.phone}`}>{voter?.phone}</a></div>
                             <div>{voter?.source === "new" ? "Новый" : "Из старой базы"}</div>
                         </>
                     )}

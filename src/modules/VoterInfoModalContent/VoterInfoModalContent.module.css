@@ -139,6 +139,18 @@
     height: 30px;
 }
 
+@media (max-width: 1600px) {
+    .buttonsConfirmPar, .buttons {
+        height: 70px;
+    }
+}
+
+@media (max-width: 642px) {
+    .infoBlock div{
+        height: 50px;
+    }
+}
+
 
 @media (max-width: 600px) {
     .modalContent {

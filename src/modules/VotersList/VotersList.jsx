@@ -4,7 +4,7 @@ import VotersItem from "../../components/VotersItem/VotersItem";
 import ModalWindow from "../../components/ModalWindow/ModalWindow";
 import VoterInfoModalContent from "../VoterInfoModalContent/VoterInfoModalContent";
 
-const VotersList = ({ voters, setVoters, page = 1 }) => {
+const VotersList = ({ getVoters, voters, setVoters, page = 1 }) => {
     const [voterId, setVoterId] = useState(null);
     const [modalWindow, setModalWindow] = useState(false);
     const [modalSize, setModalSize] = useState({ width: 40, height: 70, marginTop: "10vh" });
@@ -14,16 +14,12 @@ const VotersList = ({ voters, setVoters, page = 1 }) => {
             const width = window.innerWidth;
 
             if (width <= 480) {
-                // Мобильные
                 setModalSize({ width: 95, height: 90, marginTop: "5vh" });
             } else if (width <= 768) {
-                // Планшеты
                 setModalSize({ width: 80, height: 80, marginTop: "6vh" });
             } else if (width <= 1030) {
-                // Небольшие ноутбуки
                 setModalSize({ width: 60, height: 75, marginTop: "8vh" });
             } else {
-                // Десктоп
                 setModalSize({ width: 40, height: 70, marginTop: "10vh" });
             }
         };
@@ -35,20 +31,21 @@ const VotersList = ({ voters, setVoters, page = 1 }) => {
 
     return (
         <div className={style.container} style={{ width: '90%' }}>
-            {modalWindow && (
-                <ModalWindow
-                    width={modalSize.width}
-                    height={modalSize.height}
-                    marginTop={modalSize.marginTop}
+            {/* ✅ Всегда рендерим ModalWindow */}
+            <ModalWindow
+                isOpened={modalWindow}
+                setIsOpened={setModalWindow}
+                width={modalSize.width}
+                height={modalSize.height}
+                marginTop={modalSize.marginTop}
+            >
+                <VoterInfoModalContent
+                    getVoters={getVoters}
                     setIsOpened={setModalWindow}
-                >
-                    <VoterInfoModalContent
-                        setIsOpened={setModalWindow}
-                        setVoters={setVoters}
-                        id={voterId}
-                    />
-                </ModalWindow>
-            )}
+                    setVoters={setVoters}
+                    id={voterId}
+                />
+            </ModalWindow>
 
             <div className={style.table}>
                 <VotersItem
@@ -75,7 +72,7 @@ const VotersList = ({ voters, setVoters, page = 1 }) => {
                         name={voter.name}
                         address={voter.address}
                         nom={(idx + 1) + (page > 1 ? page * 200 : 0)}
-                        pollingStationNumber={voter.pollingStationNumber}
+                        pollingStationNumber={voter.pollingStation.pollingStationNumber}
                         header={false}
                     />
                 ))}
