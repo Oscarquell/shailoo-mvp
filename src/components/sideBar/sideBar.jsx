@@ -17,6 +17,7 @@ export default function Sidebar() {
     const navItems = [
         { name: "СРМ", path: "/" },
         { name: "Статистика", path: "/statistics" },
+        { name: "Информация по участкам", path: "/polling-info" },
     ];
 
     const handleLogout = () => {
