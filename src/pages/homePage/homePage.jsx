@@ -2,31 +2,29 @@ import React, {useEffect, useState} from 'react';
 import Search from "../../modules/Search/Search";
 import VotersList from "../../modules/VotersList/VotersList";
 import Pagination from "../../modules/Pagination/Pagination";
-import {Voters} from "../../constants/testConstants";
-import {axiosInstance} from "../../API/api";
 import {getVotersList} from "../../API/getVoterList";
-import {useNavigate} from "react-router-dom";
+import {showError} from "../../utils/alerts";
 
 const ITEMS_PER_PAGE = 50;
 
 const HomePage = () => {
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
+    const [size, setSize] = useState(20);
     const [voters, setVoters] = useState([]);
-    const navigate = useNavigate()
 
     const totalPages = Math.max(1, Math.ceil((voters?.length || 0) / ITEMS_PER_PAGE));
 
     async function getVoters() {
         try {
-            const voters = await getVotersList(page);
+            const voters = await getVotersList(page, size);
             setVoters(voters);
-        } catch (e) {
-            navigate("/login")
+        } catch (error) {
+            showError('Ошибка', `Ошибка при загрузке голосующих: ${error}`);
         }
     }
 
     useEffect(() => {
-        getVoters()
+        getVoters(page, size)
     }, [])
 
     return (

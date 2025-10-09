@@ -40,9 +40,6 @@ const Authorization = () => {
                 username: login,
                 password: password
             });
-
-            console.log(response.data , 'TEST_DATA');
-
             const { accessToken, refreshToken } = response.data;
 
             if (accessToken && refreshToken) {
@@ -58,7 +55,6 @@ const Authorization = () => {
                 showError('Ошибка', 'Неверный формат ответа от сервера');
             }
         } catch (error) {
-            e.preventDefault();
             if (error.response?.status === 401) {
                 showError('Ошибка авторизации', 'Неверный логин или пароль');
             } else {
@@ -74,6 +70,7 @@ const Authorization = () => {
                     onSubmit={handleLogin}
                     className="authorization-inputs"
                     autoComplete="on"
+                    noValidate
                 >
                     <img src={logo} alt="logo" className="authorization-logo-imng" />
 

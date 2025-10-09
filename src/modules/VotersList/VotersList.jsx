@@ -62,7 +62,7 @@ const VotersList = ({ getVoters, voters, setVoters, page = 1 }) => {
                     key={"headerRow"}
                 />
 
-                {voters.map((voter, idx) => (
+                {voters?.voters?.map((voter, idx) => (
                     <VotersItem
                         onClick={() => {
                             setVoterId(voter.id);
