@@ -4,6 +4,7 @@ import Authorization from "../pages/authorization/authorization";
 import HomePage from "../pages/homePage/homePage";
 import StatisticsPage from "../pages/statisticsPage/statisticsPage";
 import Sidebar from "../components/sideBar/sideBar";
+import PollingInfoPage from "../pages/pollingInfoPage/pollingInfoPage";
 
 const MainRoutes = () => {
     const location = useLocation();
@@ -29,6 +30,10 @@ const MainRoutes = () => {
                     <Route
                         path="/statistics"
                         element={<PrivateRoute><StatisticsPage /></PrivateRoute>}
+                    />
+                    <Route
+                        path="/polling-info"
+                        element={<PrivateRoute><PollingInfoPage /></PrivateRoute>}
                     />
                     <Route path="/login" element={<Authorization />} />
                 </Routes>
