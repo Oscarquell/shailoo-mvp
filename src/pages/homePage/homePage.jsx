@@ -32,8 +32,8 @@ const HomePage = () => {
     return (
         <>
 
-            <Search setPage={setPage} setVoters={setVoters} />
-            <VotersList setVoters={setVoters} voters={voters} />
+            <Search getVoters={getVoters} setPage={setPage} setVoters={setVoters} />
+            <VotersList getVoters={getVoters} setVoters={setVoters} voters={voters} />
             {totalPages > 1 && (
                 <Pagination
                     page={page}
