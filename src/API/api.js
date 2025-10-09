@@ -1,7 +1,7 @@
 import axios from "axios";
-import { getToken, setToken } from "./token";
-import { updateAccessToken } from "./updateToke";
-import {showWarning} from "../utils/alerts";
+import {getToken} from "./token";
+import {updateAccessToken} from "./updateToke";
+
 
 const axiosInstance = axios.create({
     // baseURL: "http://localhost:8080/api/",
@@ -10,39 +10,25 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
     (config) => {
-        const accessToken = getToken();
-        if (accessToken) {
-            config.headers["Authorization"] = `Bearer ${accessToken}`;
-        }
+        const accessToken = getToken()
+        const auth = accessToken ? `Bearer ${accessToken}` : '';
+        config.headers['Authorization'] = auth;
         return config;
     },
-    (error) => Promise.reject(error)
+    (error) => Promise.reject(error),
 );
 
-axiosInstance.interceptors.response.use(
-    (response) => response,
-    async (error) => {
-        const originalRequest = error.config;
-
-        if (error.response && error.response.status === 401 && !originalRequest._retry) {
-            originalRequest._retry = true;
-
-            try {
-                const access_token = await updateAccessToken();
-                if (access_token) {
-                    setToken(access_token);
-                    axios.defaults.headers.common["Authorization"] = "Bearer " + access_token;
-                    return axiosInstance(originalRequest);
-                }
-            } catch (refreshError) {
-                showWarning('Внимание!', '🔒 Рефреш токен невалиден - перенаправляю на страницу авторизации')
-                localStorage.clear();
-                window.location.href = "/login";
-            }
-        }
-
-        return Promise.reject(error);
+axiosInstance.interceptors.response.use((response) => {
+    return response
+}, async function (error) {
+    const originalRequest = error.config;
+    if (error.response && error.response.status === 401 && !originalRequest._retry) {
+        originalRequest._retry = true;
+        const access_token = await updateAccessToken();
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + access_token;
+        return axiosInstance(originalRequest);
     }
-);
+    return Promise.reject(error);
+});
 
-export { axiosInstance };
+export {axiosInstance}

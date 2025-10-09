@@ -9,7 +9,7 @@ import ModalWindow from "../../components/ModalWindow/ModalWindow";
 import AddVoterModalContent from "../AddVoterModalContent/AddVoterModalContent";
 import { axiosInstance } from "../../API/api";
 
-const Search = ({ setVoters, setPage, page }) => {
+const Search = ({getVoters, setVoters, setPage, page }) => {
     const [modalWindow, setModalWindow] = useState(false);
     const theme = useTheme();
     const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
@@ -37,28 +37,25 @@ const Search = ({ setVoters, setPage, page }) => {
 
     return (
         <div>
-            {modalWindow && (
-                <ModalWindow
+            <ModalWindow
+                isOpened={modalWindow}
+                setIsOpened={setModalWindow}
+                width={
+                    isSmall
+                        ? 90
+                        : isTablet
+                            ? 70
+                            : 40
+                }
+                marginTop={isSmall ? "5vh" : "10vh"}
+            >
+                <AddVoterModalContent
+                    getVoters={getVoters}
+                    setVoters={setVoters}
                     setIsOpened={setModalWindow}
-                    width={
-                        isSmall
-                            ? 90    // смартфон (почти на весь экран)
-                            : isTablet
-                                ? 70 // планшет
-                                : 40 // десктоп
-                    }
-                    height={
-                        isSmall
-                            ? 90    // почти вся высота
-                            : isTablet
-                                ? 80
-                                : 75
-                    }
-                    marginTop={isSmall ? "5vh" : "10vh"}
-                >
-                    <AddVoterModalContent setIsOpened={setModalWindow} />
-                </ModalWindow>
-            )}
+                />
+            </ModalWindow>
+
 
 
             {/* ======== ФИЛЬТРЫ ======== */}

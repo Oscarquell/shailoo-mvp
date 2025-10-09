@@ -4,22 +4,21 @@ import { axiosInstance } from "../../API/api";
 import { Button } from "@mui/material";
 import {showError, showSuccess} from "../../utils/alerts";
 
-const AddVoterModalContent = ({setIsOpened}) => {
+const AddVoterModalContent = ({getVoters, setIsOpened}) => {
     const [pollingStations, setPollingStations] = useState([]);
     const [newVoterObj, setNewVoterObj] = useState({source: "new"});
+    const [error, setError] = useState({})
 
 // === Получение участков ===
     async function getPollingStations() {
+        setError({})
         try {
-            const { data } = await axiosInstance.get("/polling-stations/statistics");
+            const { data } = await axiosInstance.get("/polling-stations");
             setPollingStations(data);
         } catch (e) {
-
-
+            setError(e.response.data.details);
             console.error("Ошибка при загрузке участков:", e);
-            // const errorObj = e.response?.data || {};
-            // const firstKey = Object.keys(errorObj)[0];
-            // const firstValue = errorObj[firstKey];
+            showError("Ошибка при получении Избирательных участков!")
         }
     }
 
@@ -27,7 +26,7 @@ const AddVoterModalContent = ({setIsOpened}) => {
     const handleInputChange = (field, value) => {
         let parsedValue = value;
 
-        if (field === "pollingStationNumber") {
+        if (field === "pollingStationId") {
             parsedValue = Number(value); // делаем числом
         } else if (field === "participatedInPreviousElections") {
             if (value === "true") parsedValue = true;
@@ -46,9 +45,10 @@ const AddVoterModalContent = ({setIsOpened}) => {
         try {
             await axiosInstance.post("/voters", newVoterObj);
             showSuccess("✅ Избиратель успешно добавлен:");
+            getVoters()
             setIsOpened(false);
         } catch (e) {
-            console.log(e)
+            console.error(e)
             try {
                 // Берём первый ключ из объекта деталей ошибки
                 const errorObj = e.response?.data.details || {};
@@ -66,9 +66,6 @@ const AddVoterModalContent = ({setIsOpened}) => {
         getPollingStations();
     }, []);
 
-    useEffect(() => {
-        console.log("Текущий объект:", newVoterObj);
-    }, [newVoterObj]);
 
     return (
         <div>
@@ -89,17 +86,18 @@ const AddVoterModalContent = ({setIsOpened}) => {
                     <input type="text" onChange={(e) => handleInputChange("address", e.target.value)} />
 
                     <label>Номер участка:</label>
-                    <select onChange={(e) => handleInputChange("pollingStationNumber", e.target.value)}>
+                    <select onChange={(e) => handleInputChange("pollingStationId", e.target.value)}>
                         <option value="">Выберите участок</option>
-                        {/*{pollingStations.sort((a, b) => a.pollingStationNumber - b.pollingStationNumber).map((item) => (*/}
-                        {/*    <option key={item.pollingStationNumber} value={item.pollingStationNumber}>*/}
-                        {/*        {item.pollingStationNumber}*/}
-                        {/*    </option>*/}
-                        {/*))}*/}
-
-                            <option>
-                                1102
+                        {pollingStations.map((item) => (
+                            <option key={item.poolingStationId} value={item.poolingStationId}>
+                                {/*{item.name}*/}
+                                {item.pollingStationNumber}
                             </option>
+                        ))}
+
+                            {/*<option value={2}>*/}
+                            {/*    1102*/}
+                            {/*</option>*/}
                     </select>
 
                     <label>Агитатор:</label>
