@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Menu, X, LogOut } from "lucide-react";
 import "./sidebar.css";
+import { logout } from "../../utils/logout";
+import logoJPG from '../../assets/logo/emgek.jpg'
 
 export default function Sidebar() {
     const navigate = useNavigate();
@@ -20,6 +22,7 @@ export default function Sidebar() {
     const handleLogout = () => {
         setIsOpen(false);
         navigate("/login");
+        logout();
     };
 
     return (
@@ -38,7 +41,9 @@ export default function Sidebar() {
 
             {/* Сайдбар */}
             <div className={`sidebar ${isOpen ? "open" : ""}`}>
-                <h2 className="sidebar-title">Навигация</h2>
+                {/* логотип */}
+                <img src={logoJPG} alt="Логотип" className="sidebar-logo" />
+
                 <div className="sidebar-buttons">
                     {navItems.map((item) => (
                         <button

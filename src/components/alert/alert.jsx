@@ -1,10 +1,11 @@
 import React from 'react'
+import './alert.css'
 
 const Alert = (props) => {
     return (
         <div>
-            <h4 style={{textAlign: 'center'}}>{props.title}</h4>
-            <p style={{textAlign: 'center'}}>{props.msg}</p>
+            {/*<h4 className='alert-title'>{props.title}</h4>*/}
+            <p className='alert-description'>{props.msg}</p>
         </div>
     )
 }

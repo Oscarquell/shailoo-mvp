@@ -4,8 +4,8 @@ import {updateAccessToken} from "./updateToke";
 
 
 const axiosInstance = axios.create({
-    // baseURL: 'http://localhost:8080/api/',
-    baseURL: 'http://158.181.205.52:8080/api/',
+    baseURL: 'http://localhost:8080/api/',
+    // baseURL: 'http://158.181.205.52:8080/api/',
 });
 
 axiosInstance.interceptors.request.use(
