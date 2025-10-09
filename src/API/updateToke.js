@@ -1,15 +1,13 @@
 import axios from "axios";
 import { setToken } from "./token";
-import {showWarning} from "../utils/alerts";
+import {redirectToLogin} from "./redirectToLogin";
 
 export const updateAccessToken = async () => {
     const refresh = localStorage.getItem("refreshToken");
 
     if (!refresh) {
-        showWarning('Внимание!', 'Рефреш токен утерян - перенаправляем на страницу авторизации')
-        console.warn("⚠️Рефреш токен утерян - перенаправляем на страницу авторизации");
         localStorage.clear();
-        window.location.href = "/login";
+        redirectToLogin()
         return;
     }
     try {
