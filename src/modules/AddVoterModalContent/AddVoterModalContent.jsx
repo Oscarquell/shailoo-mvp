@@ -44,7 +44,7 @@ const AddVoterModalContent = ({getVoters, setIsOpened}) => {
     async function newVoter() {
         try {
             await axiosInstance.post("/voters", newVoterObj);
-            showSuccess("✅ Избиратель успешно добавлен:");
+            showSuccess("Избиратель успешно добавлен!");
             getVoters()
             setIsOpened(false);
         } catch (e) {
