@@ -12,6 +12,7 @@ const Authorization = () => {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
+    // === Распарсить JWT ===
     const parseJwt = (token) => {
         try {
             const base64Url = token.split('.')[1];
@@ -29,30 +30,41 @@ const Authorization = () => {
         }
     };
 
+    // === Авторизация ===
     const handleLogin = async (e) => {
         e.preventDefault();
+
         if (!login || !password) {
             showError('Ошибка', 'Введите логин и пароль');
             return;
         }
+
         try {
             const response = await axiosInstance.post('auth/login', {
                 username: login,
                 password: password
             });
+
             const { accessToken, refreshToken } = response.data;
 
             if (accessToken && refreshToken) {
                 setToken(accessToken, "accessToken");
                 setToken(refreshToken, "refreshToken");
+
                 const decoded = parseJwt(accessToken);
-                if (decoded?.fullName) {
-                    localStorage.setItem("userName", decoded.fullName);
+                if (decoded) {
+                    if (decoded.fullName) {
+                        localStorage.setItem("userName", decoded.fullName);
+                    }
+                    if (decoded.authorities?.[0]) {
+                        localStorage.setItem("userRole", decoded.authorities[0]); // 💾 сохраняем роль
+                    }
                 }
-                showSuccess('Вы успешно вошли!', `Добро пожаловать, ${decoded.fullName} !`);
+
+                showSuccess('Успешно', `Добро пожаловать, ${decoded?.fullName || "пользователь"}!`);
                 navigate("/");
             } else {
-                showError('Ошибка', 'Неверный формат ответа от сервера');
+                showError('Ошибка', 'Неверный ответ от сервера');
             }
         } catch (error) {
             if (error.response?.status === 401) {
@@ -86,6 +98,7 @@ const Authorization = () => {
                         fullWidth
                         style={{ backgroundColor: "white" }}
                     />
+
                     <TextField
                         id="password"
                         label="Пароль"
