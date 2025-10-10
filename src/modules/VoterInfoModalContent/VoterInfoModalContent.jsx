@@ -61,8 +61,12 @@ const VoterInfoModalContent = ({ getVoters, id, setIsOpened }) => {
                 source: newVoter.source === "new" ? "new" : "old",
                 pollingStationNumber: Number(newVoter.pollingStationNumber),
             };
+<<<<<<< HEAD
 
             const { data } = await axiosInstance.put(`/voters/${id}`, payload);
+=======
+            const {data} = await axiosInstance.put(`/voters/${id}`, payload);
+>>>>>>> 56d60e05ecaf6b4aa8f81464b780c8ca170df96c
             setVoter(data);
             getVoters();
             setEdit(false);
