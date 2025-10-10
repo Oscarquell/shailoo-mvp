@@ -3,12 +3,14 @@ import { axiosInstance } from "../../API/api";
 import style from "./VoterInfoModalContent.module.css";
 import { Button } from "@mui/material";
 import { showError, showSuccess } from "../../utils/alerts";
+import {getAgitatorsList} from "../../API/getAgitatorsList";
 
-const VoterInfoModalContent = ({ getVoters, id, setIsOpened, setVoters }) => {
+const VoterInfoModalContent = ({ getVoters, id, setIsOpened }) => {
     const [voter, setVoter] = useState({});
-    const [edit, setEdit] = useState(false);
-    const [pollingStations, setPollingStations] = useState([]);
     const [newVoter, setNewVoter] = useState({});
+    const [pollingStations, setPollingStations] = useState([]);
+    const [agitators, setAgitators] = useState([]);
+    const [edit, setEdit] = useState(false);
     const [confirmDelete, setConfirmDelete] = useState(false);
 
     // === Получение данных избирателя ===
@@ -19,6 +21,7 @@ const VoterInfoModalContent = ({ getVoters, id, setIsOpened, setVoters }) => {
             setNewVoter({
                 ...data,
                 pollingStationId: data.pollingStation?.poolingStationId || data.pollingStation?.pollingStationId || null,
+                agitatorId: data.agitator?.agitatorId || null,
             });
         } catch (e) {
             console.error(e);
@@ -32,6 +35,15 @@ const VoterInfoModalContent = ({ getVoters, id, setIsOpened, setVoters }) => {
             setPollingStations(data);
         } catch (e) {
             showError("Ошибка при получении Избирательных участков!");
+        }
+    }
+
+    async function getAgitators() {
+        try {
+            const agitators_data = await getAgitatorsList()
+            setAgitators(agitators_data);
+        } catch (e) {
+
         }
     }
 
@@ -49,8 +61,7 @@ const VoterInfoModalContent = ({ getVoters, id, setIsOpened, setVoters }) => {
                 source: newVoter.source === "new" ? "new" : "old",
                 pollingStationNumber: Number(newVoter.pollingStationNumber),
             };
-
-            const { data } = await axiosInstance.put(`/voters/${id}`, payload);
+            const {data} = await axiosInstance.put(`/voters/${id}`, payload);
             setVoter(data);
             getVoters();
             setEdit(false);
@@ -93,6 +104,7 @@ const VoterInfoModalContent = ({ getVoters, id, setIsOpened, setVoters }) => {
 
     useEffect(() => {
         getPollingStations();
+        getAgitators()
     }, []);
 
     return (
@@ -111,18 +123,44 @@ const VoterInfoModalContent = ({ getVoters, id, setIsOpened, setVoters }) => {
             )}
 
             <div className={style.infoCard}>
+                {/*<div className={style.infoBlock}>*/}
+                {/*    <div>ID:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{voter?.id ?? "—"}</div>*/}
+                {/*    <div>ИНН:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{voter?.pin ?? "—"}</div>*/}
+                {/*    <div>Адрес:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{voter?.address ?? "—"}</div>*/}
+                {/*    <div>Номер&nbsp;участка:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{voter?.pollingStation?.pollingStationNumber ?? "—"}</div>*/}
+                {/*    <div>Агитатор:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{voter?.agitator ? `${voter.agitator.fullName} ` : "Не указан"}</div>*/}
+                {/*    <div>Участие&nbsp;раньше:&nbsp;&nbsp;&nbsp;{voter?.participatedInPreviousElections ? "Да" : voter?.participatedInPreviousElections === null ? "Неизвестно" : "Нет"}</div>*/}
+                {/*    <div>Телефон:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{voter?.phone ? <a style={{ color: "white" }} href={`tel:${voter.phone}`}>{voter.phone}</a>: "—"}</div>*/}
+                {/*    <div>Избиратель:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{voter?.source === "new" ? "Новый" : "Из старой базы"}</div>*/}
+                {/*</div>*/}
                 <div className={style.infoBlock}>
-                    <div>ID:</div>
-                    <div>ИНН:</div>
-                    <div>Адрес:</div>
-                    <div>Номер&nbsp;участка:</div>
-                    <div>Агитатор:</div>
-                    <div>Участие&nbsp;раньше:</div>
-                    <div>Телефон:</div>
-                    <div>Избиратель:</div>
+                    <div>
+                        <span>ID:</span>
+                    </div>
+                    <div>
+                        <span>ИНН:</span>
+                    </div>
+                    <div>
+                        <span>Адрес:</span>
+                    </div>
+                    <div>
+                        <span>Номер&nbsp;участка:</span>
+                    </div>
+                    <div>
+                        <span>Агитатор:</span>
+                    </div>
+                    <div>
+                        <span>Участие&nbsp;раньше:</span>
+                    </div>
+                    <div>
+                        <span>Телефон:</span>
+                    </div>
+                    <div>
+                        <span>Избиратель:</span>
+                    </div>
                 </div>
 
-                <div className={style.infoBlock}>
+                <div className={`${style.infoBlock} ${style.infoBlock2}`}>
                     {edit ? (
                         <>
                             <div>{voter?.id ?? "—"}</div>
@@ -158,19 +196,34 @@ const VoterInfoModalContent = ({ getVoters, id, setIsOpened, setVoters }) => {
                                 </select>
                             </div>
                             <div>
-                                <input
+                                <select
                                     onChange={(e) =>
-                                        setNewVoter({
-                                            ...newVoter,
-                                            agitator: {
-                                                ...newVoter.agitator,
-                                                fullName: e.target.value,
-                                            },
-                                        })
+                                        setNewVoter({ ...newVoter, agitatorId: Number(e.target.value) })
                                     }
-                                    type="text"
-                                    value={newVoter?.agitator?.fullName || ""}
-                                />
+                                    value={newVoter?.agitatorId || ""}
+                                >
+                                    {agitators.map((item) => (
+                                        <option
+                                            key={item.agitatorId}
+                                            value={item.agitatorId}
+                                        >
+                                            {item.fullName}
+                                        </option>
+                                    ))}
+                                </select>
+                                {/*<input*/}
+                                {/*    onChange={(e) =>*/}
+                                {/*        setNewVoter({*/}
+                                {/*            ...newVoter,*/}
+                                {/*            agitator: {*/}
+                                {/*                ...newVoter.agitator,*/}
+                                {/*                fullName: e.target.value,*/}
+                                {/*            },*/}
+                                {/*        })*/}
+                                {/*    }*/}
+                                {/*    type="text"*/}
+                                {/*    value={newVoter?.agitator?.fullName || ""}*/}
+                                {/*/>*/}
                             </div>
                             <div>
                                 <select

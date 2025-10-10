@@ -9,16 +9,20 @@ const VotersItem = ({nom, name, address, pollingStationNumber, header, onClick})
             style={{gridTemplateColumns: "50px 1fr 1fr 120px 120px"}}
         >
             <div>
-                <span className={style.adaptivTableExplanations}>№:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> {nom}
+                <div className={style.adaptivTableExplanations}>№:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div>{nom}</div>
             </div>
             <div>
-                <span className={style.adaptivTableExplanations}>ФИО:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> {name}
+                <div className={style.adaptivTableExplanations}>ФИО:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div>{name}</div>
             </div>
             <div>
-                <span className={style.adaptivTableExplanations}>Адрес:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>{address}
+                <div className={style.adaptivTableExplanations}>Адрес:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div>{address}</div>
             </div>
             <div>
-                <span className={style.adaptivTableExplanations}>Изб. участок:</span> {pollingStationNumber}
+                <div className={style.adaptivTableExplanations}>Изб. участок:</div>
+                <div>{pollingStationNumber}</div>
             </div>
             {!header ?
                 <div className={style.tools}>
