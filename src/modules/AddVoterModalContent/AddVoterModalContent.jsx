@@ -6,9 +6,11 @@ import {showError, showSuccess} from "../../utils/alerts";
 
 const AddVoterModalContent = ({getVoters, setIsOpened}) => {
     const [pollingStations, setPollingStations] = useState([]);
+    const [agitators, setAgitators] = useState([]);
     const [newVoterObj, setNewVoterObj] = useState({source: "new"});
     const [error, setError] = useState({})
 
+    console.log(newVoterObj)
 // === Получение участков ===
     async function getPollingStations() {
         setError({})
@@ -22,6 +24,18 @@ const AddVoterModalContent = ({getVoters, setIsOpened}) => {
         }
     }
 
+    // === Получение агитаторов ===
+    async function getAgitators() {
+        setError({})
+        try {
+            const { data } = await axiosInstance.get("/agitators");
+            setAgitators(data);
+        } catch (e) {
+            setError(e.response.data.details);
+            console.error("Ошибка при загрузке участков:", e);
+            showError("Ошибка при получении Избирательных участков!")
+        }
+    }
 
     const handleInputChange = (field, value) => {
         let parsedValue = value;
@@ -64,6 +78,7 @@ const AddVoterModalContent = ({getVoters, setIsOpened}) => {
 
     useEffect(() => {
         getPollingStations();
+        getAgitators()
     }, []);
 
 
@@ -94,14 +109,23 @@ const AddVoterModalContent = ({getVoters, setIsOpened}) => {
                                 {item.pollingStationNumber}
                             </option>
                         ))}
-
-                            {/*<option value={2}>*/}
-                            {/*    1102*/}
-                            {/*</option>*/}
                     </select>
 
+
                     <label>Агитатор:</label>
-                    <input type="text" onChange={(e) => handleInputChange("agitator", e.target.value)} />
+                    <select onChange={(e) => handleInputChange("agitatorId", e.target.value)}>
+                        <option value="">Выберите агитатора:</option>
+                        {agitators.map((item) => (
+                            <option key={item.agitatorId} value={item.agitatorId}>
+                                {/*{item.name}*/}
+                                {item.fullName}
+                            </option>
+                        ))}
+                    </select>
+
+
+                    {/*<label>Агитатор:</label>*/}
+                    {/*<input type="text" onChange={(e) => handleInputChange("agitator", e.target.value)} />*/}
 
                     <label>Участие раньше:</label>
                     <select onChange={(e) => handleInputChange("participatedInPreviousElections", e.target.value)}>
