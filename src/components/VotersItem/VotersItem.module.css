@@ -55,6 +55,8 @@
     gap: 6px;
 }
 
+
+
 .adaptivTableExplanations{
     display: none;
 }
@@ -98,7 +100,13 @@
     .adaptivTableExplanations{
         display: contents;
     }
+
+    .voter div{
+        display: flex;
+    }
 }
+
+
 
 /* 📲 Планшеты (от 601px до 992px) */
 @media (min-width: 601px) and (max-width: 992px) {

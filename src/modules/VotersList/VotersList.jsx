@@ -4,7 +4,7 @@ import VotersItem from "../../components/VotersItem/VotersItem";
 import ModalWindow from "../../components/ModalWindow/ModalWindow";
 import VoterInfoModalContent from "../VoterInfoModalContent/VoterInfoModalContent";
 
-const VotersList = ({ getVoters, voters, setVoters, page = 1 }) => {
+const VotersList = ({ getVoters, voters, page = 0 }) => {
     const [voterId, setVoterId] = useState(null);
     const [modalWindow, setModalWindow] = useState(false);
     const [modalSize, setModalSize] = useState({ width: 40, height: 70, marginTop: "10vh" });
@@ -42,7 +42,6 @@ const VotersList = ({ getVoters, voters, setVoters, page = 1 }) => {
                 <VoterInfoModalContent
                     getVoters={getVoters}
                     setIsOpened={setModalWindow}
-                    setVoters={setVoters}
                     id={voterId}
                 />
             </ModalWindow>
@@ -62,7 +61,7 @@ const VotersList = ({ getVoters, voters, setVoters, page = 1 }) => {
                     key={"headerRow"}
                 />
 
-                {voters?.voters?.map((voter, idx) => (
+                {voters?.map((voter, idx) => (
                     <VotersItem
                         onClick={() => {
                             setVoterId(voter.id);

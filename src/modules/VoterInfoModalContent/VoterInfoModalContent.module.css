@@ -24,6 +24,7 @@
 .infoCard {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 60px;
     font-size: 18px;
     line-height: 1.8;
@@ -137,7 +138,22 @@
 
 .infoBlock div{
     height: 30px;
+    border-bottom: 1px solid #a8a8a8;
 }
+
+.infoBlock2 div{
+    min-height: 30px;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;        /* максимум 2 строки */
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+}
+
+
 
 @media (max-width: 1600px) {
     .buttonsConfirmPar, .buttons {
@@ -145,9 +161,26 @@
     }
 }
 
+@media (max-width: 501px) {
+    .infoBlock div{
+        height: 60px;
+    }
+    .infoBlock2 div{
+        -webkit-line-clamp: 3;
+
+    }
+}
+
+
 @media (max-width: 642px) {
     .infoBlock div{
         height: 50px;
+        display: flex;
+        align-items: center;
+    }
+    .infoBlock2 div{
+        -webkit-line-clamp: 2;
+
     }
 }
 
