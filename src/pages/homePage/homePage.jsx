@@ -1,48 +1,61 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from "react";
 import Search from "../../modules/Search/Search";
 import VotersList from "../../modules/VotersList/VotersList";
 import Pagination from "../../modules/Pagination/Pagination";
-import {getVotersList} from "../../API/getVoterList";
-import {showError} from "../../utils/alerts";
-
-const ITEMS_PER_PAGE = 50;
+import { getVotersList } from "../../API/getVoterList";
+import { showError } from "../../utils/alerts";
+import { axiosInstance } from "../../API/api";
 
 const HomePage = () => {
     const [page, setPage] = useState(0);
-    const [size, setSize] = useState(20);
+    const [size, setSize] = useState(() => localStorage.getItem("perPage") || 200);
+    const [totalPages, setTotalPages] = useState(1);
+    const [searchQuery, setSearchQuery] = useState("");
     const [voters, setVoters] = useState([]);
-
-    const totalPages = Math.max(1, Math.ceil((voters?.length || 0) / ITEMS_PER_PAGE));
 
     async function getVoters() {
         try {
-            const voters = await getVotersList(page, size);
-            setVoters(voters);
+            let data;
+            if (searchQuery.trim().length >= 3) {
+                const res = await axiosInstance.get(`/voters/search?q=${searchQuery}&page=${page}&size=${size}`);
+                data = res.data;
+            } else {
+                data = await getVotersList(page, size);
+            }
+
+            setVoters(data);
+            setTotalPages(data.pagination.totalPages);
         } catch (error) {
-            showError('Ошибка', `Ошибка при загрузке голосующих: ${error}`);
+            showError("Ошибка", `Ошибка при загрузке голосующих: ${error}`);
         }
     }
 
     useEffect(() => {
-        getVoters(page, size)
-    }, [])
+        getVoters();
+    }, [page, searchQuery, size]);
 
     return (
         <>
+            <Search
+                size={size}
+                page={page}
+                setPage={setPage}
+                getVoters={getVoters}
+                setVoters={setVoters}
+                setSearchQuery={setSearchQuery}
+                setSize={setSize}
+            />
 
-            <Search getVoters={getVoters} setPage={setPage} setVoters={setVoters} />
-            <VotersList getVoters={getVoters} setVoters={setVoters} voters={voters} />
-            {totalPages > 1 && (
-                <Pagination
-                    page={page}
-                    setPage={setPage}
-                    totalPages={totalPages}
-                />
-            )}
+            <VotersList getVoters={getVoters} voters={voters?.voters} />
+                {totalPages > 1 && (
+                    <Pagination
+                        page={page}
+                        setPage={setPage}
+                        totalPages={totalPages}
+                    />
+                )}
         </>
     );
-
 };
-
 
 export default HomePage;
