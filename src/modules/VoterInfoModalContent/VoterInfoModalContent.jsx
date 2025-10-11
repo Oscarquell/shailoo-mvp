@@ -17,11 +17,12 @@ const VoterInfoModalContent = ({ getVoters, id, setIsOpened }) => {
     async function getVoter() {
         try {
             const { data } = await axiosInstance.get(`/voters/${id}`);
-            setVoter(data);
+            console.log(data);
+            setVoter(data.data);
             setNewVoter({
-                ...data,
-                pollingStationId: data.pollingStation?.poolingStationId || data.pollingStation?.pollingStationId || null,
-                agitatorId: data.agitator?.agitatorId || null,
+                ...data.data,
+                pollingStationId: data.data.pollingStation?.poolingStationId || data.data.pollingStation?.pollingStationId || null,
+                agitatorId: data.data.agitator?.agitatorId || null,
             });
         } catch (e) {
             console.error(e);
@@ -32,7 +33,7 @@ const VoterInfoModalContent = ({ getVoters, id, setIsOpened }) => {
     async function getPollingStations() {
         try {
             const { data } = await axiosInstance.get("/polling-stations");
-            setPollingStations(data);
+            setPollingStations(data.data);
         } catch (e) {
             showError("Ошибка при получении Избирательных участков!");
         }
@@ -58,11 +59,11 @@ const VoterInfoModalContent = ({ getVoters, id, setIsOpened }) => {
                         : newVoter.participatedInPreviousElections === "false"
                             ? false
                             : null,
-                source: newVoter.source === "new" ? "new" : "old",
+                source: newVoter.source === "NEW" ? "NEW" : "OLD",
                 pollingStationNumber: Number(newVoter.pollingStationNumber),
             };
             const {data} = await axiosInstance.put(`/voters/${id}`, payload);
-            setVoter(data);
+            setVoter(data.data);
             getVoters();
             setEdit(false);
             showSuccess("Избиратель успешно обновлен!");
@@ -256,10 +257,10 @@ const VoterInfoModalContent = ({ getVoters, id, setIsOpened }) => {
                             <div>
                                 <select
                                     onChange={(e) => setNewVoter({ ...newVoter, source: e.target.value })}
-                                    value={newVoter?.source === "new" ? "new" : "old"}
+                                    value={newVoter?.source === "NEW" ? "NEW" : "OLD"}
                                 >
-                                    <option value="new">Новый</option>
-                                    <option value="old">Из старой базы</option>
+                                    <option value="NEW">Новый</option>
+                                    <option value="OLD">Из старой базы</option>
                                 </select>
                             </div>
                         </>

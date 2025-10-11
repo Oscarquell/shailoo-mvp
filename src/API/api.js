@@ -4,8 +4,8 @@ import {updateAccessToken} from "./updateToke";
 
 
 const axiosInstance = axios.create({
-    // baseURL: "http://localhost:8080/api/",
-    baseURL: "https://emgek.online/api",
+    baseURL: "http://localhost:8080/api/",
+    // baseURL: "https://emgek.online/api",
 });
 
 axiosInstance.interceptors.request.use(

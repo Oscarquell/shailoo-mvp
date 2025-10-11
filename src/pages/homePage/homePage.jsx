@@ -12,18 +12,13 @@ const HomePage = () => {
     const [totalPages, setTotalPages] = useState(1);
     const [searchQuery, setSearchQuery] = useState("");
     const [voters, setVoters] = useState([]);
+    const [filters, setFilters] = useState({})
 
     async function getVoters() {
         try {
-            let data;
-            if (searchQuery.trim().length >= 3) {
-                const res = await axiosInstance.get(`/voters/search?q=${searchQuery}&page=${page}&size=${size}`);
-                data = res.data;
-            } else {
-                data = await getVotersList(page, size);
-            }
-
-            setVoters(data);
+            const data = await getVotersList(page, size, filters);
+            console.log(data);
+            setVoters(data.voters);
             setTotalPages(data.pagination.totalPages);
         } catch (error) {
             showError("Ошибка", `Ошибка при загрузке голосующих: ${error}`);
@@ -32,7 +27,7 @@ const HomePage = () => {
 
     useEffect(() => {
         getVoters();
-    }, [page, searchQuery, size]);
+    }, [page, filters, size]);
 
     return (
         <>
@@ -42,11 +37,12 @@ const HomePage = () => {
                 setPage={setPage}
                 getVoters={getVoters}
                 setVoters={setVoters}
-                setSearchQuery={setSearchQuery}
+                setFilters={setFilters}
+                filters={filters}
                 setSize={setSize}
             />
 
-            <VotersList getVoters={getVoters} voters={voters?.voters} />
+            <VotersList getVoters={getVoters} voters={voters} />
                 {totalPages > 1 && (
                     <Pagination
                         page={page}

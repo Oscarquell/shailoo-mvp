@@ -11,20 +11,20 @@ import { showError } from "../../utils/alerts";
 import { getAgitatorsList } from "../../API/getAgitatorsList";
 import SelectComponent from "../../components/Select/Select";
 
-const Search = ({ getVoters, setVoters, setPage, size, setSearchQuery, setSize }) => {
+const Search = ({ getVoters, setVoters, page, setPage, size, setFilters, filters, setSize }) => {
     const [modalWindow, setModalWindow] = useState(false);
     const theme = useTheme();
     const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
     const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
     const [pollingStations, setPollingStations] = useState([]);
     const [agitators, setAgitators] = useState([]);
-    const [searchValue, setSearchValue] = useState("");
+
 
     // === Получение участков ===
     async function getPollingStations() {
         try {
             const { data } = await axiosInstance.get("/polling-stations");
-            setPollingStations(data);
+            setPollingStations(data.data);
         } catch (e) {
             console.error("Ошибка при загрузке участков:", e);
             showError("Ошибка при получении Избирательных участков!");
@@ -34,7 +34,7 @@ const Search = ({ getVoters, setVoters, setPage, size, setSearchQuery, setSize }
     // === Получение агитаторов ===
     async function getAgitators() {
         try {
-            const data = await getAgitatorsList();
+            const data = await getAgitatorsList(page, size, filters);
             setAgitators(data);
         } catch (e) {
             console.error("Ошибка при загрузке агитаторов:", e);
@@ -42,29 +42,33 @@ const Search = ({ getVoters, setVoters, setPage, size, setSearchQuery, setSize }
         }
     }
 
-// === При изменении поискового поля ===
     useEffect(() => {
-        const trimmed = searchValue.trim();
+        console.log(filters)
+    }, [filters]);
 
-        const timeout = setTimeout(() => {
-            // Если пользователь полностью очистил поле — получаем весь список
-            if (trimmed.length === 0) {
-                setSearchQuery("");
-                setPage(0);
-                return;
-            }
-
-            // Если длина >= 3 символов — запускаем поиск
-            if (trimmed.length >= 3) {
-                setSearchQuery(trimmed);
-                setPage(0);
-            }
-
-            // Если длина 1–2 символа — ничего не делаем
-        }, 500);
-
-        return () => clearTimeout(timeout);
-    }, [searchValue]);
+// === При изменении поискового поля ===
+//     useEffect(() => {
+//         const trimmed = searchValue.trim();
+//
+//         const timeout = setTimeout(() => {
+//             // Если пользователь полностью очистил поле — получаем весь список
+//             if (trimmed.length === 0) {
+//                 setSearchQuery("");
+//                 setPage(0);
+//                 return;
+//             }
+//
+//             // Если длина >= 3 символов — запускаем поиск
+//             if (trimmed.length >= 3) {
+//                 setSearchQuery(trimmed);
+//                 setPage(0);
+//             }
+//
+//             // Если длина 1–2 символа — ничего не делаем
+//         }, 500);
+//
+//         return () => clearTimeout(timeout);
+//     }, [searchValue]);
 
 
     useEffect(() => {
@@ -95,7 +99,11 @@ const Search = ({ getVoters, setVoters, setPage, size, setSearchQuery, setSize }
                     }}
                     items={pollingStations.map((item) => item.pollingStationNumber)}
                     label="Участки"
+                    onChange={(value) =>
+                        setFilters({ ...filters, pollingStationNumber: value })
+                    }
                 />
+
 
                 <AutoComplete
                     style={{
@@ -103,6 +111,7 @@ const Search = ({ getVoters, setVoters, setPage, size, setSearchQuery, setSize }
                     }}
                     items={agitators.map((item) => item.fullName)}
                     label="Агитатор"
+                    onChange={(value) => setFilters({...filters, agitatorName: value})}
                 />
 
 
@@ -127,7 +136,7 @@ const Search = ({ getVoters, setVoters, setPage, size, setSearchQuery, setSize }
             <div className={style.SearchParent}>
                 <div className={style.searchWrapper}>
                     <InputComponent
-                        label="ФИО / Адрес / ИНН"
+                        label="ФИО"
                         sx={{
                             background: "none",
                             width: "100%",
@@ -145,7 +154,70 @@ const Search = ({ getVoters, setVoters, setPage, size, setSearchQuery, setSize }
                                 opacity: 1,
                             },
                         }}
-                        onChange={(e) => setSearchValue(e.target.value)}
+                        onChange={(e) => setFilters({...filters, fullName: e.target.value})}
+                    />
+                    <InputComponent
+                        label="Адрес"
+                        sx={{
+                            background: "none",
+                            width: "100%",
+                            height: "51px",
+                            borderRadius: "5px 0 0 5px",
+                            color: "#fff",
+                            "& .MuiInputLabel-root": { color: "#fff" },
+                            "& .MuiOutlinedInput-root": {
+                                "& fieldset": { borderColor: "white" },
+                                "&:hover fieldset": { borderColor: "#fff" },
+                                "&.Mui-focused fieldset": { borderColor: "#00e676" },
+                            },
+                            "& .MuiInputBase-input::placeholder": {
+                                color: "#fff",
+                                opacity: 1,
+                            },
+                        }}
+                        onChange={(e) => setFilters({...filters, address: e.target.value})}
+                    />
+                    <InputComponent
+                        label="ИНН"
+                        sx={{
+                            background: "none",
+                            width: "100%",
+                            height: "51px",
+                            borderRadius: "5px 0 0 5px",
+                            color: "#fff",
+                            "& .MuiInputLabel-root": { color: "#fff" },
+                            "& .MuiOutlinedInput-root": {
+                                "& fieldset": { borderColor: "white" },
+                                "&:hover fieldset": { borderColor: "#fff" },
+                                "&.Mui-focused fieldset": { borderColor: "#00e676" },
+                            },
+                            "& .MuiInputBase-input::placeholder": {
+                                color: "#fff",
+                                opacity: 1,
+                            },
+                        }}
+                        onChange={(e) => setFilters({...filters, pin: e.target.value})}
+                    />
+                    <InputComponent
+                        label="Номер телефона"
+                        sx={{
+                            background: "none",
+                            width: "100%",
+                            height: "51px",
+                            borderRadius: "5px 0 0 5px",
+                            color: "#fff",
+                            "& .MuiInputLabel-root": { color: "#fff" },
+                            "& .MuiOutlinedInput-root": {
+                                "& fieldset": { borderColor: "white" },
+                                "&:hover fieldset": { borderColor: "#fff" },
+                                "&.Mui-focused fieldset": { borderColor: "#00e676" },
+                            },
+                            "& .MuiInputBase-input::placeholder": {
+                                color: "#fff",
+                                opacity: 1,
+                            },
+                        }}
+                        onChange={(e) => setFilters({...filters, phoneNumber: e.target.value})}
                     />
                     <SelectComponent
                         onChange={(e) => {

@@ -2,11 +2,13 @@ import React from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 
-const AutoComplete = ({ items, label, style }) => {
+const AutoComplete = ({ items, label, style, onChange }) => {
     return (
         <Autocomplete
             disablePortal
             options={items}
+            getOptionLabel={(option) => String(option)} // ✅ Преобразуем число в строку
+            onChange={(event, value) => onChange(value)} // MUI передаёт value вторым аргументом
             sx={{
                 ...style,
                 "& .MuiOutlinedInput-root": {
@@ -18,19 +20,19 @@ const AutoComplete = ({ items, label, style }) => {
                         borderColor: "#fff",
                     },
                     "&.Mui-focused fieldset": {
-                        borderColor: "#00e676 !important", // красная рамка
+                        borderColor: "#00e676 !important",
                     },
                     color: "#fff",
                 },
                 "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#00e676 !important", // убирает синий
+                    borderColor: "#00e676 !important",
                 },
                 "& .MuiInputLabel-root": {
                     color: "rgba(255,255,255,0.8)",
                     transition: "color 0.2s ease",
                 },
                 "& .MuiInputLabel-root.Mui-focused": {
-                    color: "#00e676 !important", // красный лейбл
+                    color: "#00e676 !important",
                 },
                 "& .MuiInputBase-input::placeholder": {
                     color: "#fff",

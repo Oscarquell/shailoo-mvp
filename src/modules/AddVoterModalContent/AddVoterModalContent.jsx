@@ -7,7 +7,7 @@ import {showError, showSuccess} from "../../utils/alerts";
 const AddVoterModalContent = ({getVoters, setIsOpened}) => {
     const [pollingStations, setPollingStations] = useState([]);
     const [agitators, setAgitators] = useState([]);
-    const [newVoterObj, setNewVoterObj] = useState({source: "new"});
+    const [newVoterObj, setNewVoterObj] = useState({source: "NEW"});
     const [error, setError] = useState({})
 
     console.log(newVoterObj)
@@ -16,7 +16,8 @@ const AddVoterModalContent = ({getVoters, setIsOpened}) => {
         setError({})
         try {
             const { data } = await axiosInstance.get("/polling-stations");
-            setPollingStations(data);
+            setPollingStations(data.data);
+            console.log(data)
         } catch (e) {
             setError(e.response.data.details);
             console.error("Ошибка при загрузке участков:", e);
@@ -29,7 +30,7 @@ const AddVoterModalContent = ({getVoters, setIsOpened}) => {
         setError({})
         try {
             const { data } = await axiosInstance.get("/agitators");
-            setAgitators(data);
+            setAgitators(data.data);
         } catch (e) {
             setError(e.response.data.details);
             console.error("Ошибка при загрузке участков:", e);
@@ -144,8 +145,8 @@ const AddVoterModalContent = ({getVoters, setIsOpened}) => {
                         onChange={(e) => handleInputChange("source", e.target.value)}
                     >
                         <option value="">Выберите источник</option>
-                        <option value="new">Новый</option>
-                        <option value="old">Из старой базы</option>
+                        <option value="NEW">Новый</option>
+                        <option value="OLD">Из старой базы</option>
                     </select>
 
                 </div>

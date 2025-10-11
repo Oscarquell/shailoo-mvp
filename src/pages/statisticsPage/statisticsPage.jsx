@@ -15,7 +15,7 @@ export default function StatisticsPage() {
     const getStatistics = async () => {
         try {
             const response = await axiosInstance.get('statistics/polling-stations');
-            const data = await response.data;
+            const data = await response.data.data;
             setVotes(data)
         } catch (error) {
             showError('Ошибка', `'Ошибка при загрузке статистики: ${error}'`);
@@ -25,7 +25,7 @@ export default function StatisticsPage() {
     const getStatisticsBySources = async () => {
         try {
             const response = await axiosInstance.get('statistics/polling-stations/by-sources');
-            const data = response.data;
+            const data = response.data.data;
             const newSources = data.filter(item => item.source === 'new');
             setNewVotes(newSources);
         } catch (error) {
@@ -36,7 +36,7 @@ export default function StatisticsPage() {
     const getAgitatorsStatistics = async () => {
         try {
             const response = await axiosInstance.get('statistics/agitators');
-            const data = response.data;
+            const data = response.data.data;
             setAgitators(data);
         } catch (error) {
             showError('Ошибка', `'Ошибка при загрузке статистики агитаторов: ${error}'`);

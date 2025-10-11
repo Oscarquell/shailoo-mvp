@@ -31,7 +31,7 @@ const HeadquartersPage = () => {
     const getHeadquarter = async () => {
         try {
             const response = await axiosInstance.get("admin/users");
-            const data = response.data;
+            const data = response.data.data;
 
             // ✅ Сортировка: сначала ADMIN, потом AGITATOR
             const sortedData = [...data].sort((a, b) => {

@@ -10,7 +10,7 @@ const PollingInfoPage = () => {
     const getPollingStations = async () => {
         try {
             const response = await axiosInstance.get('/polling-stations')
-            const data = response.data;
+            const data = response.data.data;
             setPollingStations(data)
         } catch (e) {
             showError('Ошибка', 'Что-то пошло не так, обратитесь к администратору.')
